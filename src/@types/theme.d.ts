@@ -1,6 +1,6 @@
 import { theme } from "../styles/theme";
 
-declare module "styled-components/native" {
+declare module "@emotion/react" {
   type ThemeType = typeof theme;
-  export interface DefaultTheme extends ThemeType {}
+  export interface Theme extends ThemeType {}
 }
