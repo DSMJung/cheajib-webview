@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import ReviewAnswer from "./ReviewAnswer";
+import Rating from "../../common/Rating";
 
 const Review = () => {
   return (
@@ -7,8 +8,8 @@ const Review = () => {
       <ReviewWrapper>
         <MeatballsMenu />
         <UserName>김의찬</UserName>
-        <div style={{ display: "flex", margin: "8px 0 12px" }}>
-          <StarBox />
+        <div style={{ display: "flex", margin: "8px 0 8px" }}>
+          <Rating width={"68px"} readOnly value={5} />
           <Date>어제</Date>
         </div>
         <Content>
@@ -30,12 +31,6 @@ const ReviewWrapper = styled.div`
 const UserName = styled.p`
   font-weight: 600;
   font-size: 16px;
-`;
-
-const StarBox = styled.div`
-  background-color: ${({ theme }) => theme.grey700};
-  height: 12px;
-  width: 68px;
 `;
 
 const Date = styled.p`
