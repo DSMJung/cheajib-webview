@@ -3,30 +3,31 @@ import Call from "../../../assets/restaurantDetail/information/call.png";
 import Info from "../../../assets/restaurantDetail/information/info.png";
 import Time from "../../../assets/restaurantDetail/information/time.png";
 
-const Information = () => {
+const Information = ({ phone_number, open_time }) => {
+  //TODO. props 를 받아서 정보 변경하기
   return (
     <InformationWrapper>
       <MapBox />
       <Title>기본 정보</Title>
       <Box>
         <img src={Call} style={{ width: "16px", marginRight: "12px" }} />
-        <Text>010-2948-8899</Text>
+        <Text>010-9312-4329</Text>
       </Box>
       <Box>
         <img
           src={Time}
-          style={{ width: "16px", height: "16px", marginRight: "12px" }}
+          style={{ width: "16px", height: "16px", margin: "4px 12px 0 0" }}
         />
         <TimeBox>
-          <Text>평일: 17:30 - 23:20</Text>
-          <Text>토요일: 17:00 - 24:00</Text>
-          <Text>일요일: 17:00 - 24:00</Text>
+          {`평일: 17:30 - 23:20
+          토요일: 17:00 - 24:00
+          일요일: 17:00 - 24:00`}
         </TimeBox>
       </Box>
       <Box>
         <img
           src={Info}
-          style={{ width: "16px", height: "16px", margin: "2px 12px 0 0" }}
+          style={{ width: "16px", height: "16px", margin: "3px 12px 0 0" }}
         />
         <Text style={{ lineHeight: "18px" }}>
           단체석, 포장, 예약, 무선 인터넷, 남/녀 화장실 구분, 국민지원금
@@ -68,7 +69,9 @@ const Box = styled.div`
 
 const TimeBox = styled.div`
   height: 64px;
+  white-space: pre-line;
   display: flex;
+  line-height: 22px;
   flex-direction: column;
   justify-content: space-between;
 `;
