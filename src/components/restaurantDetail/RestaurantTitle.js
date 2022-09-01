@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import CertificationBadge from "../../assets/common/certificationBadge.png";
 
-const RestaurantTitle = () => {
+const RestaurantTitle = ({ restaurantName, isCertification, address }) => {
   return (
     <RestaurantTitleWrapper>
       <TitleBox>
-        <Title>브롱스</Title>
-        <img src={CertificationBadge} />
+        <Title>{restaurantName}</Title>
+        {isCertification && <img src={CertificationBadge} />}
       </TitleBox>
-      <Address>서교동 346-39번지 하동 1층 마포구 서울특별시 KR</Address>
+      <Address>{address}</Address>
     </RestaurantTitleWrapper>
   );
 };
