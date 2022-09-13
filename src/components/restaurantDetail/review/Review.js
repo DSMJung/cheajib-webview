@@ -1,22 +1,26 @@
 import styled from "@emotion/styled";
 import ReviewAnswer from "./ReviewAnswer";
 import Rating from "../../common/Rating";
+import ReviewImage from "./ReviewImage";
 
 const Review = () => {
   return (
     <>
       <ReviewWrapper>
-        <MeatballsMenu />
-        <UserName>김의찬</UserName>
-        <div style={{ display: "flex", margin: "8px 0 8px" }}>
-          <Rating width={"68px"} readOnly value={5} />
-          <Date>어제</Date>
+        <ReviewImage imageArray={[]} />
+        <div style={{ position: "relative" }}>
+          <MeatballsMenu />
+          <UserName>김의찬</UserName>
+          <div style={{ display: "flex", margin: "8px 0 8px" }}>
+            <Rating width={"68px"} readOnly value={5} />
+            <Date>어제</Date>
+          </div>
+          <Content>
+            완전 맛있어요 최강이다 사장님 만수무강하세요~!! 완전 맛있어요
+            최강이다 사장님 만수무강하세요~!! 완전 맛있어요 최강이다 사장님
+            만수무강하세요~!!
+          </Content>
         </div>
-        <Content>
-          완전 맛있어요 최강이다 사장님 만수무강하세요~!! 완전 맛있어요 최강이다
-          사장님 만수무강하세요~!! 완전 맛있어요 최강이다 사장님
-          만수무강하세요~!!
-        </Content>
       </ReviewWrapper>
       <ReviewAnswer />
     </>
