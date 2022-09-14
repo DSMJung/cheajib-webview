@@ -1,0 +1,4 @@
+.zIndexUp {
+  position: absolute;
+  z-index: 200;
+}
