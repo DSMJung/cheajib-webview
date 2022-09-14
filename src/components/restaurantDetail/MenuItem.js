@@ -1,22 +1,28 @@
 import styled from "@emotion/styled";
 import { vegetarianLevelImage } from "../../assets/vegetarianLevel";
 
-const MenuItem = () => {
+const MenuItem = ({
+  menuName,
+  reliability,
+  participants,
+  discription,
+  price,
+  vegetarianLevel,
+  menuImage,
+}) => {
   return (
     <MenuItemContainer>
       <MenuTextInfoContainer>
         <MenuHeaderContentContainer>
-          <img src={vegetarianLevelImage("vegan")}></img>
-          <h3>우유 라면</h3>
-          <p>80%</p>
-          <span>(10+)</span>
+          <img src={vegetarianLevelImage(vegetarianLevel)}></img>
+          <h3>{menuName}</h3>
+          <p>{reliability}%</p>
+          <span>{`(${participants})+`}</span>
         </MenuHeaderContentContainer>
-        <DescriptionArea>
-          우유의 부드러운 맛과 라면의 매콤한 국물이 어우러진 지구 최강의 음식
-        </DescriptionArea>
-        <MenuPrice>4000원</MenuPrice>
+        <DescriptionArea>{discription}</DescriptionArea>
+        <MenuPrice>{price}원</MenuPrice>
       </MenuTextInfoContainer>
-      <MenuImageBox />
+      <MenuImageBox src={menuImage} />
     </MenuItemContainer>
   );
 };

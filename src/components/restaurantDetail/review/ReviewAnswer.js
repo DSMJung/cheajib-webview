@@ -1,16 +1,13 @@
 import styled from "@emotion/styled";
 
-const ReviewAnswer = () => {
+const ReviewAnswer = ({ content, date }) => {
   return (
     <AnswerWrapper>
       <div style={{ display: "flex" }}>
         <OwnerName>사장님</OwnerName>
-        <Date>오늘</Date>
+        <Date>{date}</Date>
       </div>
-      <AnswerContent>
-        김의찬님, 저희 파스타를 맛있게 드셔주셔서 감사합니다^^ 앞으로도 더
-        맛있는 파스타를 만들기 위해 노력하겠습니다
-      </AnswerContent>
+      <AnswerContent>{content}</AnswerContent>
     </AnswerWrapper>
   );
 };

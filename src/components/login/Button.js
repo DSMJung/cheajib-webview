@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
-const Button = ({ text, img, color, backgroundColor }) => {
+const Button = ({ text, img, color, backgroundColor, onClick }) => {
   return (
-    <ButtonWrapper backgroundColor={backgroundColor}>
+    <ButtonWrapper backgroundColor={backgroundColor} onClick={onClick}>
       <img src={img} />
       <Text color={color}>{text}</Text>
     </ButtonWrapper>

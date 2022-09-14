@@ -25,6 +25,7 @@ const FullSizeButtonWrapper = styled.section`
   left: 0;
   width: 100%;
   padding: 0 20px 16px;
+  z-index: 101;
 `;
 
 const BackgroundBox = styled.div`

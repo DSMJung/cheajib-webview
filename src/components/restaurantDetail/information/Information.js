@@ -3,8 +3,8 @@ import Call from "../../../assets/restaurantDetail/information/call.png";
 import Info from "../../../assets/restaurantDetail/information/info.png";
 import Time from "../../../assets/restaurantDetail/information/time.png";
 
-const Information = ({ phone_number, open_time }) => {
-  //TODO. props 를 받아서 정보 변경하기
+const Information = ({}) => {
+  //TODO. react-query 로 api를 받아서 정보 변경하기
   return (
     <InformationWrapper>
       <MapBox />

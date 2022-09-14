@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import Arrow from "../../assets/mypage/arrow.svg";
 
-const NavigationBox = ({ subText, mainText }) => {
+const NavigationBox = ({ subText, mainText, onClick }) => {
   return (
-    <NavigationWrapper>
+    <NavigationWrapper onClick={onClick}>
       <SubText>{subText}</SubText>
       {mainText()}
     </NavigationWrapper>
