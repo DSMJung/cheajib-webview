@@ -1,26 +1,31 @@
 import styled from "@emotion/styled";
 import certificationBadge from "../../assets/common/certificationBadge.png";
 import star from "../../assets/common/fullStar.png";
-import brongs from "../../assets/test/brongs.png";
 
-const RestaurantItem = () => {
+const RestaurantItem = ({
+  restaurantName,
+  address,
+  rating,
+  recommendMenu,
+  isCertification,
+  restaurantImage,
+  onClick,
+}) => {
   return (
-    <ItemContainer>
-      <RestaurantImage src={brongs} />
+    <ItemContainer onClick={onClick}>
+      <RestaurantImage src={restaurantImage} />
       <ItemInfoContainer>
         <RestaurantName>
-          브롱스
-          <img src={certificationBadge} />
+          {restaurantName}
+          {isCertification && <img src={certificationBadge} />}
         </RestaurantName>
-        <AddressText>
-          서교동 346-39번지 하동 1층 마포구 서울특별시KR
-        </AddressText>
+        <AddressText>{address}</AddressText>
         <EtcInfoContainer>
           <RactingState>
             <img src={star} />
-            <p>4.9</p>
+            <p>{rating}</p>
           </RactingState>
-          <RecommendedMenu>우유 빵, 우유 라면</RecommendedMenu>
+          <RecommendedMenu>{recommendMenu}</RecommendedMenu>
         </EtcInfoContainer>
       </ItemInfoContainer>
     </ItemContainer>
@@ -40,6 +45,7 @@ const RestaurantImage = styled.div`
   min-width: 82px;
   height: 82px;
   border-radius: 4px;
+  background-color: ${({ theme }) => theme.grey500};
   background-image: url(${({ src }) => src});
   background-position: center;
   background-repeat: no-repeat;
