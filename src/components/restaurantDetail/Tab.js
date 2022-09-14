@@ -1,15 +1,15 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { theme } from "../../styles/theme";
-import Review from "../restaurantDetail/review/Review";
 import Information from "./information/Information";
-
+import MenuList from "./MenuList/MenuList";
+import ReviewList from "./review/ReviewList";
 const Tab = () => {
   const tabtitle = ["메뉴", "정보", "리뷰"];
   const tab = {
-    0: <p>메뉴</p>,
+    0: <MenuList />,
     1: <Information />,
-    2: <Review />,
+    2: <ReviewList />,
   };
   const [activetab, setActiveTab] = useState(0);
   const onClickTab = (idx) => {

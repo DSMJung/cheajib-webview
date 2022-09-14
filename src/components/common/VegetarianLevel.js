@@ -11,10 +11,10 @@ const levelNum = {
   flexitarian: 5,
 };
 
-const VegetarianStage = ({ initalState, onChangeLevel }) => {
-  const [level, setLevel] = useState(initalState && "flexitarian");
+const VegetarianStage = ({ initalState, onChangeLevel, ...props }) => {
+  const [level, setLevel] = useState(initalState || "flexitarian");
   return (
-    <StageContainer>
+    <StageContainer {...props}>
       {Object.keys(levelNum).map((x, i) => (
         <VegetarianItem
           key={i}

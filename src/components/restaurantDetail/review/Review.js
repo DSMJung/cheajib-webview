@@ -3,26 +3,19 @@ import ReviewAnswer from "./ReviewAnswer";
 import Rating from "../../common/Rating";
 import ReviewImage from "./ReviewImage";
 
-const Review = () => {
+const Review = ({ userName, date, content, rating, imageArr }) => {
   return (
     <>
       <ReviewWrapper>
-        <ReviewImage imageArray={[]} />
-        <div style={{ position: "relative" }}>
-          <MeatballsMenu />
-          <UserName>김의찬</UserName>
-          <div style={{ display: "flex", margin: "8px 0 8px" }}>
-            <Rating width={"68px"} readOnly value={5} />
-            <Date>어제</Date>
-          </div>
-          <Content>
-            완전 맛있어요 최강이다 사장님 만수무강하세요~!! 완전 맛있어요
-            최강이다 사장님 만수무강하세요~!! 완전 맛있어요 최강이다 사장님
-            만수무강하세요~!!
-          </Content>
+        <ReviewImage imageArray={imageArr || []}></ReviewImage>
+        <MeatballsMenu />
+        <UserName>{userName}</UserName>
+        <div style={{ display: "flex", margin: "8px 0 8px" }}>
+          <Rating width={"68px"} readOnly value={rating} />
+          <Date>{date}</Date>
         </div>
+        <Content>{content}</Content>
       </ReviewWrapper>
-      <ReviewAnswer />
     </>
   );
 };

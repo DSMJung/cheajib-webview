@@ -4,26 +4,33 @@ import styled from "@emotion/styled";
 import Rating from "../../common/Rating";
 import Arrow from "../../../assets/mypage/arrow.svg";
 
-const MyReview = () => {
+const MyReview = ({
+  restaurantName,
+  date,
+  content,
+  rating,
+  imageArr,
+  onClickRestaurentName,
+  onClickDelete,
+}) => {
   return (
     <>
       <ReviewWrapper>
-        <ReviewImage imageArray={[]} />
+        <ReviewImage imageArray={imageArr || []} />
         <div style={{ position: "relative" }}>
-          <Delete>삭제</Delete>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <RestaurantName>브롱스</RestaurantName>
+          <Delete onClick={onClickDelete}>삭제</Delete>
+          <div
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={onClickRestaurentName}
+          >
+            <RestaurantName>{restaurantName}</RestaurantName>
             <img src={Arrow} style={{ width: "22px", marginTop: "2px" }} />
           </div>
           <div style={{ display: "flex", margin: "6px 0 8px" }}>
-            <Rating width={"68px"} readOnly value={5} />
-            <Date>어제</Date>
+            <Rating width={"68px"} readOnly value={rating} />
+            <Date>{date}</Date>
           </div>
-          <Content>
-            완전 맛있어요 최강이다 사장님 만수무강하세요~!! 완전 맛있어요
-            최강이다 사장님 만수무강하세요~!! 완전 맛있어요 최강이다 사장님
-            만수무강하세요~!!
-          </Content>
+          <Content>{content}</Content>
         </div>
       </ReviewWrapper>
       <ReviewAnswer />

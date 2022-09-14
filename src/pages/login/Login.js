@@ -4,8 +4,11 @@ import Logo from "../../assets/login/logo.png";
 import Button from "../../components/login/Button";
 import Google from "../../assets/login/google.png";
 import Naver from "../../assets/login/naver.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <LoginWrapper>
       <SubTitle>
@@ -17,12 +20,14 @@ const Login = () => {
         text="구글로 로그인"
         backgroundColor={"#FFFFFF"}
         color={"#8D8D8D"}
+        onClick={() => navigate("/map")}
         img={Google}
       />
       <Button
         text="네이버로 로그인"
         backgroundColor={"#2CB400"}
         color={"#FFFFFF"}
+        onClick={() => navigate("/map")}
         img={Naver}
       />
     </LoginWrapper>
@@ -37,7 +42,8 @@ const LoginWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   background-image: url(${Background});
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
   > img {
     width: 52px;
