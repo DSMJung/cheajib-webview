@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
-const Input = ({ placeholder, onChange, value, name }) => {
+const Input = ({ placeholder, onChange, value, name, label }) => {
   return (
     <>
+      <Label>{label}</Label>
       <InputBox
         placeholder={placeholder}
         onChange={onChange}
@@ -12,6 +13,12 @@ const Input = ({ placeholder, onChange, value, name }) => {
     </>
   );
 };
+
+const Label = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 4px;
+`;
 
 const InputBox = styled.input`
   border: none;
