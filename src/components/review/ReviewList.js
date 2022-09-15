@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import OwnerButton from "../../owner/OwnerButton";
-import IconButton from "../IconButton";
+import OwnerButton from "../owner/OwnerButton";
+import IconButton from "../restaurantDetail/IconButton";
 import Review from "./Review";
 import ReviewAnswer from "./ReviewAnswer";
-import pencil from "../../../assets/restaurantDetail/buttonIcon/pencil.png";
+import pencil from "../../assets/restaurantDetail/buttonIcon/pencil.png";
 const ReviewList = () => {
   return (
     <>

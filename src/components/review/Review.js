@@ -1,14 +1,17 @@
 import styled from "@emotion/styled";
-import ReviewAnswer from "./ReviewAnswer";
-import Rating from "../../common/Rating";
+import Rating from "../common/Rating";
 import ReviewImage from "./ReviewImage";
+import MeatballsMenu from "../../assets/common/meatballsMenu.png";
 
 const Review = ({ userName, date, content, rating, imageArr }) => {
   return (
     <>
       <ReviewWrapper>
         <ReviewImage imageArray={imageArr || []}></ReviewImage>
-        <MeatballsMenu />
+        <img
+          src={MeatballsMenu}
+          style={{ position: "absolute", top: 0, right: 0 }}
+        />
         <UserName>{userName}</UserName>
         <div style={{ display: "flex", margin: "8px 0 8px" }}>
           <Rating width={"68px"} readOnly value={rating} />
@@ -40,15 +43,6 @@ const Content = styled.p`
   font-size: 14px;
   line-height: 18px;
   color: ${({ theme }) => theme.grey900};
-`;
-
-const MeatballsMenu = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: ${({ theme }) => theme.grey700};
-  height: 24px;
-  width: 24px;
 `;
 
 export default Review;
