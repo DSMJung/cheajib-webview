@@ -1,5 +1,5 @@
-import ReviewAnswer from "../../restaurantDetail/review/ReviewAnswer";
-import ReviewImage from "../../restaurantDetail/review/ReviewImage";
+import ReviewAnswer from "../../review/ReviewAnswer";
+import ReviewImage from "../../review/ReviewImage";
 import styled from "@emotion/styled";
 import Rating from "../../common/Rating";
 import Arrow from "../../../assets/mypage/arrow.svg";

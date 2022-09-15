@@ -3,7 +3,7 @@ import { useState } from "react";
 import { theme } from "../../styles/theme";
 import Information from "./information/Information";
 import MenuList from "./MenuList/MenuList";
-import ReviewList from "./review/ReviewList";
+import ReviewList from "../review/ReviewList";
 const Tab = () => {
   const tabtitle = ["메뉴", "정보", "리뷰"];
   const tab = {
