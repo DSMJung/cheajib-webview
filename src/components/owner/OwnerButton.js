@@ -1,29 +1,31 @@
 import styled from "@emotion/styled";
 import Pencil from "../../assets/common/Pencil";
 
-const OwnerButton = ({ children, onClick }) => {
+const OwnerButton = ({ children, onClick, isFill }) => {
   return (
-    <OwnerButtonBox onClick={onClick}>
-      <Pencil></Pencil>
-      <CustomText>{children}</CustomText>
+    <OwnerButtonBox onClick={onClick} isFill={isFill}>
+      <Pencil isWhite={isFill}></Pencil>
+      <CustomText isFill={isFill}>{children}</CustomText>
     </OwnerButtonBox>
   );
 };
 
 const OwnerButtonBox = styled.div`
   width: 100%;
-  min-height: 34px;
+  min-height: 40px;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.main};
+  background-color: ${({ theme, isFill }) =>
+    isFill ? theme.main : theme.white};
+  border: 1px solid ${({ theme }) => theme.main};
   gap: 8px;
 `;
+
 const CustomText = styled.p`
-  color: ${({ theme }) => theme.white};
-  font-weight: 500;
-  font-size: 12px;
+  color: ${({ theme, isFill }) => (isFill ? theme.white : theme.main)};
+  font-size: 14px;
 `;
 
 export default OwnerButton;
