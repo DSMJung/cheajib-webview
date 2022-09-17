@@ -8,7 +8,13 @@ import { useNavigate } from "react-router-dom";
 export const ReviewCheck = () => {
   const navigate = useNavigate();
 
-  return <NavigationBox subText="리뷰 조회하기" mainText={ReviewCheckText} />;
+  return (
+    <NavigationBox
+      subText="리뷰 조회하기"
+      mainText={ReviewCheckText}
+      onClick={() => navigate("/review_look_up")}
+    />
+  );
 };
 
 export const OwnerCertification = () => {
@@ -18,6 +24,7 @@ export const OwnerCertification = () => {
     <NavigationBox
       subText="식당 사장님이신가요?"
       mainText={OwnerCertificationText}
+      onClick={() => navigate("/registration_card_check")}
     />
   );
 };

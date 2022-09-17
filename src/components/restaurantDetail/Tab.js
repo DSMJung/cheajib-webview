@@ -43,6 +43,7 @@ const Tab = () => {
           );
         })}
       </TabWrapper>
+      <></>
       {tab[activetab]}
     </>
   );
@@ -60,5 +61,7 @@ const TabItem = styled.p`
   line-height: 44px;
   border-bottom: solid 1px ${({ theme }) => theme.grey500};
 `;
+
+const TabViewer = styled.div``;
 
 export default Tab;

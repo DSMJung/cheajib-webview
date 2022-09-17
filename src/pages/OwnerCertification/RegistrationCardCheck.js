@@ -4,16 +4,18 @@ import ImageBox from "../../components/common/ImageBox";
 import RegistrationCard from "../../assets/ownerCertification/registrationCard.png";
 import NavBar from "../../components/common/NavBar";
 import BottomFixedButton from "../../components/common/BottomFixedButton";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationCardCheck = () => {
   const [image, setImage] = useState("");
+  const navigate = useNavigate();
   return (
     <>
       <NavBar
         isBack
         isBlack
         pageTitle={"사장님 인증"}
-        onClickBack={() => {}}
+        onClickBack={() => navigate(-1)}
         headerBox={true}
         position="absolute"
       ></NavBar>
@@ -34,7 +36,11 @@ const RegistrationCardCheck = () => {
           imageState={image}
           setImageState={setImage}
         />
-        <BottomFixedButton isFill disable={!image} onClick={() => {}}>
+        <BottomFixedButton
+          isFill
+          disable={!image}
+          onClick={() => navigate("/business_registration")}
+        >
           다음
         </BottomFixedButton>
       </div>

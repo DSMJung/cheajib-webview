@@ -1,7 +1,7 @@
 import BottomFixedTab from "../components/common/BottomFixedTab";
 import FilteringButton from "../components/common/FilteringButton";
 import Map from "../components/map/Map";
-import MapRastaurantItem from "../components/map/MapRastaurantItem";
+import MapRestaurantItem from "../components/map/MapRastaurantItem";
 
 const MainMap = () => {
   return (
@@ -9,7 +9,7 @@ const MainMap = () => {
       <FilteringButton></FilteringButton>
       <Map></Map>
       <BottomFixedTab></BottomFixedTab>
-      <MapRastaurantItem></MapRastaurantItem>
+      <MapRestaurantItem></MapRestaurantItem>
     </>
   );
 };

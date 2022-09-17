@@ -4,13 +4,18 @@ import OwnerButton from "../../owner/OwnerButton";
 import IconButton from "../IconButton";
 import MenuItem from "../MenuItem";
 import plus from "../../../assets/restaurantDetail/buttonIcon/plus.png";
+import { useNavigate } from "react-router-dom";
 const MenuList = () => {
+  const navigate = useNavigate();
   return (
     <>
       <ButtonContainer>
         <OwnerButton>메뉴 관리하기</OwnerButton>
       </ButtonContainer>
-      <IconButton icon={plus}></IconButton>
+      <IconButton
+        icon={plus}
+        onClick={() => navigate("/add_menu")}
+      ></IconButton>
       <MenuListContainer>
         <MenuItem
           discription={

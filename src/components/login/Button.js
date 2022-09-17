@@ -11,13 +11,12 @@ const Button = ({ text, img, color, backgroundColor, onClick }) => {
 
 const ButtonWrapper = styled.div`
   display: flex;
-  height: 54px;
-  width: 340px;
+  min-height: 54px;
+  width: 100%;
   align-items: center;
   border-radius: 8px;
   justify-content: center;
   position: relative;
-  margin-bottom: 20px;
   background-color: ${({ backgroundColor }) => backgroundColor};
   > img {
     width: 24px;

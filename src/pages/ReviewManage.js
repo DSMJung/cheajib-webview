@@ -5,16 +5,18 @@ import Review from "../components/review/Review";
 import Reply from "../components/owner/Reply";
 import ReviewAnswer from "../components/review/ReviewAnswer";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ReviewManage = () => {
   const [viewReply, setViewReply] = useState(false);
+  const navigate = useNavigate();
   return (
     <>
       <NavBar
         isBack
         isBlack
         pageTitle={"리뷰관리"}
-        onClickBack={() => {}}
+        onClickBack={() => navigate(-1)}
         headerBox={true}
         position="absolute"
       />

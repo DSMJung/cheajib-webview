@@ -7,14 +7,14 @@ export const zoomOutMacker = (veganLevel) => {
   )}"></img></div>`;
 };
 
-export const zoomInMarker = (veganLevel, rastaurantName) => {
-  return `<div class="zoomInMarkerBox"><div class="zoomInMarkerText">${rastaurantName}</div><img src=${vegetarianLevelImage(
+export const zoomInMarker = (veganLevel, restaurantName) => {
+  return `<div class="zoomInMarkerBox"><div class="zoomInMarkerText">${restaurantName}</div><img src=${vegetarianLevelImage(
     veganLevel
   )}></img></div>`;
 };
 
-export const selectMarker = (veganLevel, rastaurantName) => {
-  return `<div class="zoomInMarkerBox"><div class="selectMarkerText">${rastaurantName}</div><img src=${vegetarianLevelImage(
+export const selectMarker = (veganLevel, restaurantName) => {
+  return `<div class="zoomInMarkerBox"><div class="selectMarkerText">${restaurantName}</div><img src=${vegetarianLevelImage(
     veganLevel
   )}></img></div>`;
 };

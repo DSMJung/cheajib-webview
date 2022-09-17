@@ -7,27 +7,31 @@ const Information = ({}) => {
   //TODO. react-query 로 api를 받아서 정보 변경하기
   return (
     <InformationWrapper>
-      <MapBox />
       <Title>기본 정보</Title>
-      <Box>
-        <img src={Call} style={{ width: "16px", marginRight: "12px" }} />
-        <Text>010-9312-4329</Text>
-      </Box>
-      <Box>
-        <img
-          src={Time}
-          style={{ width: "16px", height: "16px", margin: "4px 12px 0 0" }}
-        />
-        <TimeBox>
-          {`평일: 17:30 - 23:20
+      <MapWrapper>
+        <section>
+          <Box>
+            <img src={Call} style={{ width: "16px" }} />
+            <Text>010-9312-4329</Text>
+          </Box>
+          <Box>
+            <img
+              src={Time}
+              style={{ width: "16px", height: "16px", margin: "4px 0 0" }}
+            />
+            <TimeBox>
+              {`평일: 17:30 - 23:20
           토요일: 17:00 - 24:00
           일요일: 17:00 - 24:00`}
-        </TimeBox>
-      </Box>
+            </TimeBox>
+          </Box>
+        </section>
+        <MapBox />
+      </MapWrapper>
       <Box>
         <img
           src={Info}
-          style={{ width: "16px", height: "16px", margin: "3px 12px 0 0" }}
+          style={{ width: "16px", height: "16px", margin: "3px 0 0 0" }}
         />
         <Text style={{ lineHeight: "18px" }}>
           단체석, 포장, 예약, 무선 인터넷, 남/녀 화장실 구분, 국민지원금
@@ -53,18 +57,26 @@ const Title = styled.p`
 `;
 
 const MapBox = styled.div`
-  width: 179px;
-  height: 100px;
+  flex: 1;
+  margin: 20px 0;
   border-radius: 8px;
   background-color: #dedede;
-  position: absolute;
-  right: 0;
-  margin-top: 36px;
 `;
 
 const Box = styled.div`
   display: flex;
-  margin-top: 20px;
+  gap: 12px;
+`;
+
+const MapWrapper = styled.div`
+  display: flex;
+  gap: 40px;
+  > section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    gap: 20px;
+  }
 `;
 
 const TimeBox = styled.div`

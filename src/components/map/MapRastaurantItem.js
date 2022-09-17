@@ -1,12 +1,11 @@
 import RestaurantItem from "../restaurantList/RestaurantItem";
 import brongs from "../../assets/test/brongs.png";
 import styled from "@emotion/styled";
-import { DefaultContainer } from "../common/DefaultContainer";
 
-const MapRastaurantItem = () => {
+const MapRestaurantItem = () => {
   return (
     <DefaultWrapper>
-      <MapRastaurantWrapper>
+      <MapRestaurantWrapper>
         <RestaurantItem
           address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
           rating="4.9"
@@ -15,7 +14,7 @@ const MapRastaurantItem = () => {
           restaurantImage={brongs}
           isCertification
         ></RestaurantItem>
-      </MapRastaurantWrapper>
+      </MapRestaurantWrapper>
     </DefaultWrapper>
   );
 };
@@ -27,7 +26,7 @@ const DefaultWrapper = styled.div`
   padding: 0 20px;
 `;
 
-const MapRastaurantWrapper = styled.div`
+const MapRestaurantWrapper = styled.div`
   width: 100%;
   background-color: white;
   min-height: 113px;
@@ -36,4 +35,4 @@ const MapRastaurantWrapper = styled.div`
   overflow: hidden;
 `;
 
-export default MapRastaurantItem;
+export default MapRestaurantItem;

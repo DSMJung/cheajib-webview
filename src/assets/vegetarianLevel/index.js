@@ -26,5 +26,6 @@ const levelImage = {
   flexitarian,
   shadowFlexitarian,
 };
+vegan.toString();
 
 export const vegetarianLevelImage = (levelName) => levelImage[levelName];

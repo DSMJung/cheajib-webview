@@ -1,19 +1,14 @@
 import styled from "@emotion/styled";
 import { useEffect, useRef, useState } from "react";
 import useMyLocation from "../../hooks/useMyLocation";
-import { DefaultContainer } from "../common/DefaultContainer";
 import { selectMarker, zoomInMarker, zoomOutMacker } from "./Marker";
-import { HashLoader } from "react-spinners";
+import Spinner from "../common/Spinner";
 const Map = () => {
   const { myLocation } = useMyLocation();
   const mapRef = useRef(null);
   const markerRef = useRef(null);
   const selectMarkerRef = useRef(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-  }, []);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (myLocation.latitude && myLocation.longitude) {
@@ -31,6 +26,11 @@ const Map = () => {
         mapDataControl: false,
       });
 
+      window.naver.maps.Event.addListener(mapRef.current, "dragend", () => {
+        console.log(mapRef.current.getCenter());
+        //지도에 따른 식당 리스트 불러오
+      });
+
       window.naver.maps.Event.addListener(
         mapRef.current,
         "zoom_changed",
@@ -45,6 +45,9 @@ const Map = () => {
           });
         }
       );
+      window.naver.maps.Event.addListener(mapRef.current, "tilesloaded", () => {
+        setLoading(false);
+      });
     }
   }, [mapRef, myLocation]);
 
@@ -88,9 +91,13 @@ const Map = () => {
     markerClickEvent(markerRef.current);
   }, [markerRef, myLocation]);
 
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);
+
   return (
     <DefaultFitContainer id="map">
-      <HashLoader color="#009688" loading={loading}></HashLoader>
+      <Spinner loading={loading}></Spinner>
     </DefaultFitContainer>
   );
 };
@@ -102,4 +109,5 @@ export const DefaultFitContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 export default Map;

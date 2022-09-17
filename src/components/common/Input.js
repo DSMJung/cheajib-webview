@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 const Input = ({ placeholder, onChange, value, name, label }) => {
   return (
-    <>
+    <Wrapper>
       <Label>{label}</Label>
       <InputBox
         placeholder={placeholder}
@@ -10,10 +10,14 @@ const Input = ({ placeholder, onChange, value, name, label }) => {
         value={value}
         name={name}
       />
-    </>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+  width: 100%;
+  display: block;
+`;
 const Label = styled.p`
   font-weight: 500;
   font-size: 16px;

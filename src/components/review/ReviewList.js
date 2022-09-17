@@ -4,13 +4,20 @@ import IconButton from "../restaurantDetail/IconButton";
 import Review from "./Review";
 import ReviewAnswer from "./ReviewAnswer";
 import pencil from "../../assets/restaurantDetail/buttonIcon/pencil.png";
+import { useNavigate } from "react-router-dom";
 const ReviewList = () => {
+  const navigate = useNavigate();
   return (
     <>
       <ButtonContainer>
-        <OwnerButton onClick={() => {}}>리뷰 관리하기</OwnerButton>
+        <OwnerButton onClick={() => navigate("/review_manage")}>
+          리뷰 관리하기
+        </OwnerButton>
       </ButtonContainer>
-      <IconButton icon={pencil}></IconButton>
+      <IconButton
+        icon={pencil}
+        onClick={() => navigate("/review_select_menu")}
+      ></IconButton>
       <Review
         content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
 완전 맛있어요 최강이다 사장님 만수무강하세요~!!
