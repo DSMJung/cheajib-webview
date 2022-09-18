@@ -66,20 +66,24 @@ const RestaurantName = styled.div`
     width: 22px;
     height: 22px;
   }
-  margin-bottom: 3px;
+  /* margin-bottom: 3px; */
 `;
 
 const AddressText = styled.div`
   height: 36px;
   color: ${({ theme }) => theme.grey900};
   font-size: 14px;
+  line-height: 16px;
   font-weight: 400;
+  display: flex;
+  align-items: center;
 `;
 
 const EtcInfoContainer = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+  margin-top: 3px;
 `;
 
 const RactingState = styled.div`

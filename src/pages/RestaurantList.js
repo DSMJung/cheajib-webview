@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
-
   return (
     <>
       <NavBar
@@ -21,7 +20,6 @@ const RestaurantList = () => {
         headerColor="white"
       ></NavBar>
       <FilteringButton></FilteringButton>
-
       <RestaurantListContainer>
         <RestaurantItem
           address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"

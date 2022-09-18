@@ -52,7 +52,7 @@ const LoginWrapper = styled.div`
   background-image: url(${Background});
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 100px 20px;
+  padding: 180px 20px 100px;
   justify-content: space-between;
   background-position: center;
 `;

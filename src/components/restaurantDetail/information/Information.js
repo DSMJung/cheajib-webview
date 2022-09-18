@@ -38,7 +38,7 @@ const Information = ({}) => {
         </Text>
       </Box>
       <Title style={{ margin: "36px 0 12px" }}>소개글</Title>
-      <Text style={{ lineHeight: "18px" }}>
+      <Text style={{ lineHeight: "18px", marginBottom: "28px" }}>
         브롱스에서는 소주를 팔지 않습니다. 술 못먹는 술찌들을 위해 씨그램 레몬맛
         탄산수를 준비했습니다. 많이 이용해주세요.
       </Text>
