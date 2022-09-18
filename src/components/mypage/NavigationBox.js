@@ -6,6 +6,7 @@ const NavigationBox = ({ subText, mainText, onClick }) => {
     <NavigationWrapper onClick={onClick}>
       <SubText>{subText}</SubText>
       {mainText()}
+      <img src={Arrow} />
     </NavigationWrapper>
   );
 };
@@ -14,9 +15,14 @@ const NavigationWrapper = styled.div`
   width: 100%;
   height: 64px;
   padding: 12px 20px;
-  background-image: url(${Arrow});
+  position: relative;
   background-repeat: no-repeat;
   background-position: 375px 50%;
+  > img {
+    position: absolute;
+    right: 11px;
+    bottom: 18px;
+  }
 `;
 
 const SubText = styled.p`

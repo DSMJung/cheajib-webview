@@ -48,7 +48,7 @@ export const VegetarianStepsSet = () => {
       <SubText>채식 단계 설정</SubText>
       <TextBox>
         <MainText>현재 김의찬님의 채식 단계는&nbsp;</MainText>
-        <HighlightText>{veganLevelToKorean(vegan)}&nbsp;</HighlightText>
+        <HighlightText>{veganLevelToKorean(vegan)}</HighlightText>
         <MainText>입니다</MainText>
       </TextBox>
       <VegetarianStage
@@ -90,7 +90,6 @@ const FillteringContainer = styled.div`
 const SubText = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.grey700};
-  font-weight: 500;
 `;
 
 const TextBox = styled.div`

@@ -29,7 +29,7 @@ const MenuItem = ({
 
 const MenuItemContainer = styled.div`
   width: 100%;
-  height: 141px;
+  height: 128px;
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
@@ -94,10 +94,12 @@ const MenuPrice = styled.div`
 const MenuImageBox = styled.div`
   min-width: 100px;
   height: 100px;
+  border-radius: 8px;
   background-image: url(${({ src }) => src});
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   background-color: ${({ theme }) => theme.grey300};
 `;
+
 export default MenuItem;

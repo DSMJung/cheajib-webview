@@ -45,10 +45,9 @@ const TabContainer = styled.div`
   width: 100%;
   height: 49px;
   display: flex;
-  padding: 0 82px;
   align-items: center;
   z-index: 101 !important;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: ${({ theme }) => theme.white};
 `;
 
