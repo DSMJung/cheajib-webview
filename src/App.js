@@ -7,7 +7,16 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
-  const [queryClient] = useState(new QueryClient());
+  const [queryClient] = useState(
+    new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+          refetchOnWindowFocus: false,
+        },
+      },
+    })
+  );
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
