@@ -1,31 +1,31 @@
-import vegan from "./vegan.png";
-import lacto from "./lacto.png";
-import lactoOvo from "./lactoOvo.png";
-import pasco from "./pasco.png";
-import pollo from "./pollo.png";
-import flexitarian from "./flexitarian.png";
+import VEGAN from "./vegan.png";
+import LACTO from "./lacto.png";
+import LACTO_OVO from "./lactoOvo.png";
+import PESCO from "./pasco.png";
+import POLLO from "./pollo.png";
+import FLEXITARIAN from "./flexitarian.png";
 
-import shadowVegan from "./shadowVegan.png";
-import shadowLacto from "./shadowLacto.png";
-import shadowLactoOvo from "./shadowLactoOvo.png";
-import shadowPasco from "./shadowPasco.png";
-import shadowPollo from "./shadowPollo.png";
-import shadowFlexitarian from "./shadowFlexitarian.png";
+import SHADOW_VEGAN from "./shadowVegan.png";
+import SHADOW_LACTO from "./shadowLacto.png";
+import SHADOW_LACTO_OVO from "./shadowLactoOvo.png";
+import SHADOW_PESCO from "./shadowPasco.png";
+import SHADOW_POLLO from "./shadowPollo.png";
+import SHADOW_FLEXITARIAN from "./shadowFlexitarian.png";
 
 const levelImage = {
-  vegan,
-  shadowVegan,
-  lacto,
-  shadowLacto,
-  lactoOvo,
-  shadowLactoOvo,
-  pasco,
-  shadowPasco,
-  pollo,
-  shadowPollo,
-  flexitarian,
-  shadowFlexitarian,
+  VEGAN,
+  SHADOW_VEGAN,
+  LACTO,
+  SHADOW_LACTO,
+  LACTO_OVO,
+  SHADOW_LACTO_OVO,
+  PESCO,
+  SHADOW_PESCO,
+  POLLO,
+  SHADOW_POLLO,
+  FLEXITARIAN,
+  SHADOW_FLEXITARIAN,
 };
-vegan.toString();
+VEGAN.toString();
 
 export const vegetarianLevelImage = (levelName) => levelImage[levelName];

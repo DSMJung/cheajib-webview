@@ -1,11 +1,11 @@
 export const veganLevelToKorean = (veganLevel) => {
   const veganKorea = {
-    lactoOvo: "락토・오보",
-    vegan: "비건",
-    lacto: "락토",
-    pasco: "페스코",
-    pollo: "폴로",
-    flexitarian: "플렉시테리언",
+    LACTO_OVO: "락토・오보",
+    VEGAN: "비건",
+    LACTO: "락토",
+    PESCO: "페스코",
+    POLLO: "폴로",
+    FLEXITARIAN: "플렉시테리언",
   };
 
   return veganKorea[veganLevel];
