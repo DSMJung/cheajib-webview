@@ -1,13 +1,39 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { ownerCertificationAtom } from "../../atom/ownerCertificationAtom";
 import BottomFixedButton from "../../components/common/BottomFixedButton";
 import ImageBox from "../../components/common/ImageBox";
 import NavBar from "../../components/common/NavBar";
+import {
+  imageGenerator,
+  owenrCertificationGenerator,
+} from "../../utils/api/generator";
+import queryKey from "../../utils/queryKey";
 
 const BusinessRegistration = () => {
-  const [image, setImage] = useState("");
   const navigate = useNavigate();
+  const [imageState, setImageState] = useRecoilState(ownerCertificationAtom);
+  const { mutate: imageMutate, data: imageUrls } = useMutation(imageGenerator, {
+    onSuccess: () =>
+      ownerCertificationMutate({
+        id_card: imageUrls[0],
+        business_card: imageUrls[1],
+      }),
+    onError: () => alert("오류가 발생하였습니다."),
+  });
+  const { mutate: ownerCertificationMutate } = useMutation(
+    owenrCertificationGenerator,
+    {
+      onSuccess: () => {
+        navigate("/map");
+      },
+      onError: () => alert("오류가 발생하였습니다."),
+    }
+  );
+
   return (
     <>
       <NavBar
@@ -22,14 +48,21 @@ const BusinessRegistration = () => {
         <Contents>사업자 등록증 or 영업 허가증 확인</Contents>
         <ImageBox
           height={"522px"}
-          imageState={image}
-          setImageState={setImage}
+          imageState={imageState.businessRegistration}
+          setImageState={(data) =>
+            setImageState((state) => ({ ...state, businessRegistration: data }))
+          }
         />
         <HelperText>*50MB 까지 등록 가능합니다.</HelperText>
         <BottomFixedButton
           isFill
-          disable={!image}
-          onClick={() => navigate("/map")}
+          disable={!imageState.businessRegistration.fileBlob}
+          onClick={() =>
+            imageMutate([
+              imageState.registrationCard.fileBlob,
+              imageState.businessRegistration.fileBlob,
+            ])
+          }
         >
           완료
         </BottomFixedButton>

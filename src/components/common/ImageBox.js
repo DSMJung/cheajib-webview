@@ -3,15 +3,15 @@ import Image from "../../assets/common/image.png";
 
 const ImageBox = ({ height, imageState, setImageState }) => {
   const imageAdd = (fileBlob) => {
-    const url = URL.createObjectURL(fileBlob);
-    setImageState(url);
+    const fileUrl = URL.createObjectURL(fileBlob);
+    setImageState({ fileUrl, fileBlob });
   };
   return (
     <>
       <ImageWrapper height={height} htmlFor="imageInput">
-        {imageState ? (
+        {imageState.fileUrl ? (
           <img
-            src={imageState}
+            src={imageState.fileUrl}
             width="100%"
             height="100%"
             style={{ objectFit: "cover", objectPosition: "center" }}
