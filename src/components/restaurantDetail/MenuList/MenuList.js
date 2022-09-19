@@ -4,9 +4,18 @@ import OwnerButton from "../../owner/OwnerButton";
 import IconButton from "../IconButton";
 import MenuItem from "../MenuItem";
 import plus from "../../../assets/restaurantDetail/buttonIcon/plus.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import queryKey from "../../../utils/queryKey";
+import { menuListResource } from "../../../utils/api/resource";
 const MenuList = () => {
   const navigate = useNavigate();
+  const { restaurant_id } = useParams();
+  const menuKey = queryKey.menu.restaurent_id(restaurant_id);
+  const { data: menuListData } = useQuery(menuKey, () =>
+    menuListResource(restaurant_id)
+  );
+
   return (
     <>
       <ButtonContainer>
@@ -14,10 +23,33 @@ const MenuList = () => {
       </ButtonContainer>
       <IconButton
         icon={plus}
-        onClick={() => navigate("/add_menu")}
+        onClick={() => navigate(`/add_menu/${restaurant_id}`)}
       ></IconButton>
+
       <MenuListContainer>
-        <MenuItem
+        {menuListData?.menu_list.map(
+          ({
+            description,
+            name,
+            menu_id,
+            price,
+            menu_image_url,
+            average,
+            review_count,
+          }) => (
+            <MenuItem
+              description={description}
+              menuImage={menu_image_url}
+              menuName={name}
+              key={menu_id}
+              price={price}
+              participants={review_count}
+              reliability={average}
+            />
+          )
+        )}
+
+        {/* <MenuItem
           discription={
             "우유의 부드러운 맛과 라면의 매콤한 국물이 어우러진 지구 최강의 음식"
           }
@@ -105,8 +137,8 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"VEGAN"}
-        />
+          vegetarianLevel={"vegan"}
+        /> */}
       </MenuListContainer>
     </>
   );

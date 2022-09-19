@@ -12,18 +12,23 @@ const QImageBox = ({
   const imageAdd = (fileBlob) => {
     if (fileBlob) {
       const fileUrl = URL.createObjectURL(fileBlob);
-      setImageState((state) => [...state, fileUrl]);
+      setImageState((state) => [...state, { fileUrl, fileBlob }]);
     }
   };
 
   const deleteImage = (src) => {
-    setImageState((state) => state.filter((imageSrc) => imageSrc !== src));
+    setImageState((state) => state.filter((image) => image.fileUrl !== src));
     imputRef.current.value = "";
   };
+
   return (
     <ImageWrapper justifyContent={justifyContent}>
-      {imageState.map((src, idx) => (
-        <ImageShowBox key={idx} src={src} onClick={() => deleteImage(src)}>
+      {imageState.map((state, idx) => (
+        <ImageShowBox
+          key={idx}
+          src={state.fileUrl}
+          onClick={() => deleteImage(state.fileUrl)}
+        >
           <div></div>
         </ImageShowBox>
       ))}

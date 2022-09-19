@@ -59,7 +59,7 @@ const Map = () => {
       ),
       map: mapRef.current,
       icon: {
-        content: zoomOutMacker("vegan"),
+        content: zoomOutMacker("VEGAN"),
         size: new window.naver.maps.Size(38, 58),
         anchor: new window.naver.maps.Point(19, 58),
       },

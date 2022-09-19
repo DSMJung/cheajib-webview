@@ -43,9 +43,7 @@ const VegetarianItem = ({
       src={
         levelNum[currentLevel] >= levelNum[level]
           ? vegetarianLevelImage(level)
-          : vegetarianLevelImage(
-              `shadow${level.charAt(0).toUpperCase() + level.slice(1)}`
-            )
+          : vegetarianLevelImage(`SHADOW_${level}`)
       }
     />
   );

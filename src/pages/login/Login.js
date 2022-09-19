@@ -7,12 +7,28 @@ import Naver from "../../assets/login/naver.png";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import { loginGenerator } from "../../utils/api/generator";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const { mutate } = useMutation(loginGenerator, {
     onSuccess: () => navigate("/map"),
   });
+
+  const initializeNaverLogin = () => {
+    const naverLogin = new window.naver.LoginWithNaverId({
+      clientId: "wl9JLG_UF_57OZZgjkms",
+      callbackUrl: "http://localhost:3000/",
+      isPopup: false,
+      loginButton: { color: "white", type: 1, height: "47" },
+    });
+    naverLogin.init();
+  };
+
+  useEffect(() => {
+    initializeNaverLogin();
+  }, []);
+
   return (
     <LoginWrapper>
       <TextWrapper>
@@ -37,6 +53,7 @@ const Login = () => {
           onClick={() => mutate()}
           img={Naver}
         />
+        <div id="naverIdLogin"></div>
       </ButtonWrapper>
     </LoginWrapper>
   );

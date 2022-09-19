@@ -1,16 +1,43 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import BottomFixedButton from "../../components/common/BottomFixedButton";
 import { DefaultContainer } from "../../components/common/DefaultContainer";
 import NavBar from "../../components/common/NavBar";
 import QImageBox from "../../components/common/QImageBox";
 import Rating from "../../components/common/Rating";
 import VegetarianStage from "../../components/common/VegetarianLevel";
+import { imageGenerator, reviewGenerator } from "../../utils/api/generator";
 
 const ReviewWrite = () => {
   const [images, setImages] = useState([]);
+  const [rating, setRating] = useState(1);
+  const [menuList, setMenuList] = useState([]);
+  const [content, setContent] = useState("");
+  const {} = useParams();
   const navigate = useNavigate();
+  const { mutate: imageMutate, data: imageUrl } = useMutation(imageGenerator, {
+    onSuccess: () => {
+      reviewMutate({
+        restaurent_id: "",
+        content: content,
+        image_list: imageUrl.image_url_list,
+        menu_list: menuList,
+        review_point: rating,
+      });
+    },
+  });
+
+  const { mutate: reviewMutate } = useMutation(reviewGenerator, {
+    onError: (e) => alert(e),
+  });
+
+  const submitReview = () => {
+    const imagesBlob = images.map((files) => files.fileBlob);
+    imageMutate(imagesBlob);
+  };
+
   return (
     <DefaultContainer>
       <NavBar
@@ -22,7 +49,7 @@ const ReviewWrite = () => {
         onClickBack={() => navigate(-1)}
       ></NavBar>
       <RactingWrapper>
-        <Rating width={"187px"}></Rating>
+        <Rating width={"187px"} value={rating} onChange={setRating}></Rating>
       </RactingWrapper>
       <LeadText>리뷰를 작성해주세요</LeadText>
       <QImageBox
@@ -32,7 +59,11 @@ const ReviewWrite = () => {
         maxImage={4}
       />
       <InputsWrapper>
-        <ReviewTextArea placeholder="음식에 대한 솔직한 리뷰를 남겨주세요"></ReviewTextArea>
+        <ReviewTextArea
+          placeholder="음식에 대한 솔직한 리뷰를 남겨주세요"
+          onChange={(e) => setContent(e.target.value)}
+          value={content}
+        ></ReviewTextArea>
         <SelectVeganLevelWrapper>
           <VeganLevelSelectHeader>
             <VegetarianText>
@@ -46,7 +77,8 @@ const ReviewWrite = () => {
 
       <BottomFixedButton
         isFill
-        onClick={() => navigate("/rastaurant_detail/1")}
+        onClick={() => submitReview()}
+        // onClick={() => navigate("/rastaurant_detail/1")}
       >
         완료
       </BottomFixedButton>

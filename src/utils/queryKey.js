@@ -20,7 +20,7 @@ const queryKey = {
     index: () => "/images",
   },
   review: {
-    index: () => "/review",
+    restaurnat_id: (restaurnat_id) => `/review/${restaurnat_id}`,
     review_id: (review_id) => `/review/${review_id}`,
     lists: () => "/my-review/lists",
   },

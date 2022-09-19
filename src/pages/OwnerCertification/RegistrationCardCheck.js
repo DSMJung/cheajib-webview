@@ -28,18 +28,18 @@ const RegistrationCardCheck = () => {
         <Contents>③ 정보와 서류가 정확한지 확인해 주세요.</Contents>
         <img
           src={RegistrationCard}
-          style={{ width: "100%", marginTop: "28px" }}
+          style={{ width: "100%", marginTop: "16px" }}
         />
         <HelperText>*주민번호 뒷자리와 상세 주소는 꼭 가려주세요.</HelperText>
         <ImageBox
-          height={"248px"}
+          height={"200px"}
           imageState={image}
           setImageState={setImage}
         />
         <BottomFixedButton
           isFill
           disable={!image}
-          onClick={() => navigate("/business_registration")}
+          onClick={() => navigate("/")}
         >
           다음
         </BottomFixedButton>

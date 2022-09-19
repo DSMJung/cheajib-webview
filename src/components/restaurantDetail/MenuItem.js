@@ -5,7 +5,7 @@ const MenuItem = ({
   menuName,
   reliability,
   participants,
-  discription,
+  description,
   price,
   vegetarianLevel,
   menuImage,
@@ -19,7 +19,7 @@ const MenuItem = ({
           <p>{reliability}%</p>
           <span>{`(${participants})+`}</span>
         </MenuHeaderContentContainer>
-        <DescriptionArea>{discription}</DescriptionArea>
+        <DescriptionArea>{description}</DescriptionArea>
         <MenuPrice>{price}원</MenuPrice>
       </MenuTextInfoContainer>
       <MenuImageBox src={menuImage} />

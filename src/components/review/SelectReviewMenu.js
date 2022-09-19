@@ -2,21 +2,19 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import CheckBox from "../common/CheckBox";
 import brongs from "../../assets/test/brongs.png";
-const SelectMenu = () => {
+const SelectMenu = ({ name, description, price, menu_image_url }) => {
   const [isCheck, setIsCheck] = useState(false);
   return (
     <ReviewMenuWrapper>
       <CheckBox isChecked={isCheck} onClick={setIsCheck}></CheckBox>
       <MenuTextWrapper>
         <TextHeader>
-          우유 커피<i>4000원</i>
+          {name}
+          <i>{price}원</i>
         </TextHeader>
-        <DiscriptionBox>
-          우유를 커피에 타먹는 신개념 방식의 우유 신제품 마시면 잠이 안오게 되는
-          신박한 기능이 있음
-        </DiscriptionBox>
+        <DiscriptionBox>{description}</DiscriptionBox>
       </MenuTextWrapper>
-      <MenuImage src={brongs}></MenuImage>
+      <MenuImage src={menu_image_url | ""}></MenuImage>
     </ReviewMenuWrapper>
   );
 };

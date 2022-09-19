@@ -11,7 +11,6 @@ import {
   ReviewManage,
   ReviewSelectMenu,
   ReviewWrite,
-  Test,
 } from "../pages";
 import MyPage from "../pages/MyPage";
 const MainRouter = () => {
@@ -23,12 +22,18 @@ const MainRouter = () => {
         <Route path="my_page" element={<MyPage />}></Route>
         <Route path="restaurant_list" element={<RestaurantList />}></Route>
         <Route
-          path="rastaurant_detail/:restaurant"
+          path="rastaurant_detail/:restaurant_id"
           element={<RestaurantDetail />}
         ></Route>
-        <Route path="add_menu" element={<AddMenu />}></Route>
-        <Route path="review_write" element={<ReviewWrite />}></Route>
-        <Route path="review_select_menu" element={<ReviewSelectMenu />}></Route>
+        <Route path="add_menu/:restaurant_id" element={<AddMenu />}></Route>
+        <Route
+          path="review_write/:restaurant_id"
+          element={<ReviewWrite />}
+        ></Route>
+        <Route
+          path="review_select_menu/:restaurant_id"
+          element={<ReviewSelectMenu />}
+        ></Route>
         <Route
           path="business_registration"
           element={<BusinessRegistration />}

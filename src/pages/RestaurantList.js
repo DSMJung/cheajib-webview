@@ -28,7 +28,9 @@ const RestaurantList = () => {
           restaurantName="브롱스"
           restaurantImage={brongs}
           isCertification
-          onClick={() => navigate("/rastaurant_detail/1")}
+          onClick={() =>
+            navigate("/rastaurant_detail/b1dcfd2e-9116-4f8b-a239-d97ebc0c70d3")
+          }
         ></RestaurantItem>
         <RestaurantItem
           address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
