@@ -3,16 +3,16 @@ import { vegetarianLevelImage } from "../../assets/vegetarianLevel";
 import { useState } from "react";
 
 const levelNum = {
-  vegan: 0,
-  lacto: 1,
-  lactoOvo: 2,
-  pasco: 3,
-  pollo: 4,
-  flexitarian: 5,
+  VEGAN: 0,
+  LACTO: 1,
+  LACTO_OVO: 2,
+  PESCO: 3,
+  POLLO: 4,
+  FLEXITARIAN: 5,
 };
 
 const VegetarianStage = ({ initalState, onChangeLevel, ...props }) => {
-  const [level, setLevel] = useState(initalState || "flexitarian");
+  const [level, setLevel] = useState(initalState || "FLEXITARIAN");
   return (
     <StageContainer {...props}>
       {Object.keys(levelNum).map((x, i) => (

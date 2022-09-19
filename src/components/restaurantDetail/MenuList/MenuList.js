@@ -25,7 +25,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -35,7 +35,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -45,7 +45,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -55,7 +55,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -65,7 +65,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -75,7 +75,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -85,7 +85,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -95,7 +95,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
         <MenuItem
           discription={
@@ -105,7 +105,7 @@ const MenuList = () => {
           participants={10}
           price={4000}
           reliability={80}
-          vegetarianLevel={"vegan"}
+          vegetarianLevel={"VEGAN"}
         />
       </MenuListContainer>
     </>

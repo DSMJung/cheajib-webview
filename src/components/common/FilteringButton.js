@@ -9,7 +9,7 @@ import Rating from "./Rating";
 import VegetarianStage from "./VegetarianLevel";
 const FilteringButton = () => {
   const [open, setOpen] = useState(false);
-  const [veganLevel, setVeganLevel] = useState("flexitarian");
+  const [veganLevel, setVeganLevel] = useState("FLEXITARIAN");
   const [rating, setRating] = useState(1);
   return (
     <>
@@ -20,7 +20,7 @@ const FilteringButton = () => {
             <Title>필터</Title>
             <Container>
               <Discription>
-                현재 설정 단계는 <i>{veganLevelToKorean(veganLevel)}</i> 입니다
+                현재 설정 단계는 <i>{veganLevelToKorean(veganLevel)}</i>입니다
               </Discription>
               <VegetarianStage
                 onChangeLevel={setVeganLevel}

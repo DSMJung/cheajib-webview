@@ -41,7 +41,7 @@ export const Logout = () => {
   );
 };
 export const VegetarianStepsSet = () => {
-  const [vegan, setVegan] = useState("lactoOvo");
+  const [vegan, setVegan] = useState("LACTO_OVO");
 
   return (
     <FillteringContainer>

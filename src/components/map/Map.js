@@ -38,8 +38,8 @@ const Map = () => {
           markerRef.current.setIcon({
             content:
               zoom > 17
-                ? zoomInMarker("vegan", "브롱스")
-                : zoomOutMacker("vegan"),
+                ? zoomInMarker("VEGAN", "브롱스")
+                : zoomOutMacker("VEGAN"),
             size: new window.naver.maps.Size(38, 58),
             anchor: new window.naver.maps.Point(19, 58),
           });
@@ -74,14 +74,14 @@ const Map = () => {
 
         if (!!selectMarkerRef.current) {
           selectMarkerRef.current.setIcon({
-            content: zoomInMarker("vegan", "브롱스"),
+            content: zoomInMarker("VEGAN", "브롱스"),
             size: new window.naver.maps.Size(38, 58),
             anchor: new window.naver.maps.Point(19, 58),
           });
         }
 
         marker.setIcon({
-          content: selectMarker("vegan", "브롱스"),
+          content: selectMarker("VEGAN", "브롱스"),
           size: new window.naver.maps.Size(38, 58),
           anchor: new window.naver.maps.Point(19, 58),
         });
