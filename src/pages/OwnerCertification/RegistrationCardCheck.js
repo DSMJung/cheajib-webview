@@ -5,9 +5,11 @@ import RegistrationCard from "../../assets/ownerCertification/registrationCard.p
 import NavBar from "../../components/common/NavBar";
 import BottomFixedButton from "../../components/common/BottomFixedButton";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { ownerCertificationAtom } from "../../atom/ownerCertificationAtom";
 
 const RegistrationCardCheck = () => {
-  const [image, setImage] = useState("");
+  const [imageState, setImageState] = useRecoilState(ownerCertificationAtom);
   const navigate = useNavigate();
   return (
     <>
@@ -32,14 +34,16 @@ const RegistrationCardCheck = () => {
         />
         <HelperText>*주민번호 뒷자리와 상세 주소는 꼭 가려주세요.</HelperText>
         <ImageBox
-          height={"200px"}
-          imageState={image}
-          setImageState={setImage}
+          height={"248px"}
+          imageState={imageState.registrationCard}
+          setImageState={(data) =>
+            setImageState((state) => ({ ...state, registrationCard: data }))
+          }
         />
         <BottomFixedButton
           isFill
-          disable={!image}
-          onClick={() => navigate("/")}
+          disable={!imageState.registrationCard.fileBlob}
+          onClick={() => navigate("/business_registration")}
         >
           다음
         </BottomFixedButton>

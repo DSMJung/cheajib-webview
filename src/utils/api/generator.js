@@ -55,3 +55,18 @@ export const reviewGenerator = ({
     menu_list,
   });
 };
+
+export const owenrCertificationGenerator = ({ id_card, business_card }) => {
+  const generatorKey = queryKey.owner.index();
+  return instance.post(generatorKey, {
+    sex: "M",
+    postal_code: "12345",
+    address: "대전광역시 유성구 장동 76",
+    detail_address: "대덕소프트웨어마이스터고등학교",
+    owner_name: "김의찬",
+    birth_date: "20040525",
+    phone_number: "01012341234",
+    id_card,
+    business_card,
+  });
+};
