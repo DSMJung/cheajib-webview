@@ -16,11 +16,11 @@ import queryKey from "../../utils/queryKey";
 const BusinessRegistration = () => {
   const navigate = useNavigate();
   const [imageState, setImageState] = useRecoilState(ownerCertificationAtom);
-  const { mutate: imageMutate, data: imageUrls } = useMutation(imageGenerator, {
-    onSuccess: () =>
+  const { mutate: imageMutate } = useMutation(imageGenerator, {
+    onSuccess: (data) =>
       ownerCertificationMutate({
-        id_card: imageUrls[0],
-        business_card: imageUrls[1],
+        id_card: data?.image_url_list[0],
+        business_card: data?.image_url_list[1],
       }),
     onError: () => alert("오류가 발생하였습니다."),
   });
@@ -53,7 +53,7 @@ const BusinessRegistration = () => {
             setImageState((state) => ({ ...state, businessRegistration: data }))
           }
         />
-        <HelperText>*50MB 까지 등록 가능합니다.</HelperText>
+        <HelperText>*5MB 까지 등록 가능합니다.</HelperText>
         <BottomFixedButton
           isFill
           disable={!imageState.businessRegistration.fileBlob}

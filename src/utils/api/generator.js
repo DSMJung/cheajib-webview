@@ -32,7 +32,7 @@ export const menuGenerator = async ({
 export const imageGenerator = async (BlobImages) => {
   const generatorKey = queryKey.images.index();
   const FNData = new FormData();
-  BlobImages.map((imageBlob) => FNData.append("images", imageBlob), {
+  BlobImages.map((imageBlob) => FNData.append("image", imageBlob), {
     headers: {
       "Content-Type": "multipart/form-data",
     },
