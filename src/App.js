@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import MainRouter from "./router/MainRouter";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { RecoilRoot } from "recoil";
 
 function App() {
   const [queryClient] = useState(
@@ -19,12 +20,14 @@ function App() {
   );
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <Global styles={globalStyle} />
-        <BrowserRouter>
-          <MainRouter />
-        </BrowserRouter>
-      </QueryClientProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <Global styles={globalStyle} />
+          <BrowserRouter>
+            <MainRouter />
+          </BrowserRouter>
+        </QueryClientProvider>
+      </RecoilRoot>
     </ThemeProvider>
   );
 }

@@ -21,30 +21,29 @@ const AddMenu = () => {
   });
   const { restaurant_id } = useParams();
   const [imageState, setImageState] = useState([]);
-  const { mutate: menuAddMutate, data: imageData } = useMutation(
-    menuGenerator,
-    {
-      onSuccess: () => {
-        alert("메뉴가 성공적으로 추가되었습니다.");
-        navigate(`/rastaurant_detail/${restaurant_id}`);
-      },
-    }
-  );
+  const { mutate: menuAddMutate } = useMutation(menuGenerator, {
+    onSuccess: () => {
+      alert("메뉴가 성공적으로 추가되었습니다.");
+      navigate(`/restaurant_detail/${restaurant_id}`);
+    },
+  });
 
   const { mutate: imageMutate } = useMutation(imageGenerator, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data);
       menuAddMutate({
         description: inputsState.description,
         level: inputsState.level,
         price: inputsState.price,
-        menu_image: imageData.data?.image_url_list[0],
+        x: data.image_url_list[0],
         name: inputsState.name,
         restaurent_id: restaurant_id,
       });
     },
-    onError: (e) => alert("이미지 업로드에 실패하였습니다."),
+    onError: () => alert("이미지 업로드에 실패하였습니다."),
   });
 
+  console.log(inputsState);
   const inputChange = (e) => {
     const { value, name } = e.target;
     setInputsState({

@@ -23,7 +23,7 @@ const MainRouter = () => {
         <Route path="my_page" element={<MyPage />}></Route>
         <Route path="restaurant_list" element={<RestaurantList />}></Route>
         <Route
-          path="rastaurant_detail/:restaurant_id"
+          path="restaurant_detail/:restaurant_id"
           element={<RestaurantDetail />}
         ></Route>
         <Route path="add_menu/:restaurant_id" element={<AddMenu />}></Route>
@@ -45,7 +45,10 @@ const MainRouter = () => {
         ></Route>
         <Route path="terms_of_service" element={<TermsOfService />}></Route>
         <Route path="review_look_up" element={<ReviewLookUp />}></Route>
-        <Route path="review_manage" element={<ReviewManage />}></Route>
+        <Route
+          path="review_manage/:restaurant_id"
+          element={<ReviewManage />}
+        ></Route>
       </Route>
     </Routes>
   );

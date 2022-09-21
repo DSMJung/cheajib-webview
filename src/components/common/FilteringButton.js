@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
+import { useRecoilState } from "recoil";
 import Filter from "../../assets/common/Filter";
+import { filteringAtom } from "../../atom/filteringAtom";
 import "../../styles/bottomSheet.css";
 import { veganLevelToKorean } from "../../utils/function/veganLevelToKorean";
 import BottomFixedButton from "./BottomFixedButton";
@@ -9,8 +11,8 @@ import Rating from "./Rating";
 import VegetarianStage from "./VegetarianLevel";
 const FilteringButton = () => {
   const [open, setOpen] = useState(false);
-  const [veganLevel, setVeganLevel] = useState("FLEXITARIAN");
-  const [rating, setRating] = useState(1);
+  const [filteringInfo, setFilteringInfo] = useRecoilState(filteringAtom);
+
   return (
     <>
       <ButtonContainer onClick={() => setOpen(!open)}>
@@ -20,22 +22,27 @@ const FilteringButton = () => {
             <Title>필터</Title>
             <Container>
               <Discription>
-                현재 설정 단계는 <i>{veganLevelToKorean(veganLevel)}</i>입니다
+                현재 설정 단계는{" "}
+                <i>{veganLevelToKorean(filteringInfo.level)}</i>입니다
               </Discription>
               <VegetarianStage
-                onChangeLevel={setVeganLevel}
-                initalState={veganLevel}
+                onChangeLevel={(value) =>
+                  setFilteringInfo((state) => ({ ...state, level: value }))
+                }
+                initalState={filteringInfo.level}
               ></VegetarianStage>
             </Container>
             <Container>
               <Discription>
-                현재 설정 별점은 <i>{rating}.0+</i> 입니다
+                현재 설정 별점은 <i>{filteringInfo.star}.0+</i> 입니다
               </Discription>
               <RatingWrapper>
                 <Rating
                   width="280px"
-                  value={rating}
-                  onChange={setRating}
+                  value={filteringInfo.star}
+                  onChange={(value) =>
+                    setFilteringInfo((state) => ({ ...state, star: value }))
+                  }
                 ></Rating>
               </RatingWrapper>
             </Container>

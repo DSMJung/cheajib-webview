@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { vegetarianLevelImage } from "../../assets/vegetarianLevel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const levelNum = {
   VEGAN: 0,
@@ -13,6 +13,9 @@ const levelNum = {
 
 const VegetarianStage = ({ initalState, onChangeLevel, ...props }) => {
   const [level, setLevel] = useState(initalState || "FLEXITARIAN");
+  useEffect(() => {
+    setLevel(initalState);
+  }, [initalState]);
   return (
     <StageContainer {...props}>
       {Object.keys(levelNum).map((x, i) => (

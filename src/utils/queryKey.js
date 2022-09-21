@@ -1,15 +1,19 @@
 const queryKey = {
   users: {
     index: () => "/users",
+    auth: (code) => `/auth?code=${code}`,
     level: () => "/users/level",
   },
   restaurents: {
-    map: () => `/restaurents/lists/map`,
-    menu: () => "/restaurents/menu",
-    reviews: () => "/restaurents/reviews",
+    map: (x, y, level, star) =>
+      `/restaurents/lists/map?x=${x}&y=${y}&level=${level}&star=${star}`,
+    menu: (restaurant_id) => `/restaurents/menu/${restaurant_id}`,
+    reviews: (restaurant_id) => `/restaurents/reviews/${restaurant_id}`,
     restaurant_id: (restaurant_id) => `/restaurents/${restaurant_id}`,
-    lists: () => "/restaurents/lists",
-    detail: (restaurant_id) => `/restaurents/detail/${restaurant_id}`,
+    lists: (x, y, level, star) =>
+      `/restaurents/lists?x=${x}&y=${y}&level=${level}&star=${star}`,
+    detail: (restaurant_id) => `/restaurants/details/${restaurant_id}`,
+    info: (restaurent_id) => `/restaurants/info/${restaurent_id}`,
   },
   menu: {
     restaurent_id: (restaurent_id) => `/menu/${restaurent_id}`,
@@ -20,9 +24,9 @@ const queryKey = {
     index: () => "/images",
   },
   review: {
-    restaurnat_id: (restaurnat_id) => `/review/${restaurnat_id}`,
+    restaurant_id: (restaurant_id) => `/review/${restaurant_id}`,
     review_id: (review_id) => `/review/${review_id}`,
-    lists: () => "/my-review/lists",
+    my_review: () => "/my-review/lists",
   },
   owner: {
     index: () => `/owner`,

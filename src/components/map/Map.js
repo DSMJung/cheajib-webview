@@ -3,15 +3,45 @@ import { useEffect, useRef, useState } from "react";
 import useMyLocation from "../../hooks/useMyLocation";
 import { selectMarker, zoomInMarker, zoomOutMacker } from "./Marker";
 import Spinner from "../common/Spinner";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { filteringAtom } from "../../atom/filteringAtom";
+import { useQuery } from "react-query";
+import queryKey from "../../utils/queryKey";
+import { restaurentMapResource } from "../../utils/api/resource";
+import { restaurentSelectAtom } from "../../atom/restaurentSelectAtom";
+import { currentLocationAtom } from "../../atom/currentLocationAtom";
 const Map = () => {
   const { myLocation } = useMyLocation();
   const mapRef = useRef(null);
   const markerRef = useRef(null);
   const selectMarkerRef = useRef(null);
+  const setCurrentLocation = useSetRecoilState(currentLocationAtom);
+  const [location, setLocation] = useState(null);
+  const filteringValue = useRecoilValue(filteringAtom);
+  const mapKey = queryKey.restaurents.map(
+    location?.x,
+    location?.y,
+    filteringValue.level,
+    filteringValue.star
+  );
+  const setSelectRestaurent = useSetRecoilState(restaurentSelectAtom);
+
+  const { data: mapRestaurents } = useQuery([mapKey], () => {
+    if (location) {
+      restaurentMapResource({
+        level: filteringValue.level,
+        star: filteringValue.star,
+        x: location.x,
+        y: location.y,
+      });
+    }
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (myLocation.latitude && myLocation.longitude) {
+      setLocation({ x: myLocation.latitude, y: myLocation.longitude });
+      console.log(myLocation);
       mapRef.current = new window.naver.maps.Map("map", {
         center: new window.naver.maps.LatLng(
           myLocation.latitude,
@@ -27,73 +57,78 @@ const Map = () => {
       });
 
       window.naver.maps.Event.addListener(mapRef.current, "dragend", () => {
-        console.log(mapRef.current.getCenter());
+        const changeLocation = mapRef.current.getCenter();
+        setCurrentLocation({
+          latitude: changeLocation.y,
+          longitude: changeLocation.x,
+        });
+        setLocation({ x: changeLocation.y, y: changeLocation.x });
         //지도에 따른 식당 리스트 불러오
       });
 
+      window.naver.maps.Event.addListener(mapRef.current, "tilesloaded", () => {
+        setLoading(false);
+      });
+    }
+  }, [mapRef, myLocation, setCurrentLocation]);
+
+  useEffect(() => {
+    mapRestaurents?.restaurants_list.map(({ name, level, id }) => {
+      const currentMarker = new window.naver.maps.Marker({
+        position: new window.naver.maps.LatLng(
+          myLocation.latitude,
+          myLocation.longitude
+        ),
+        map: mapRef.current,
+        icon: {
+          content: zoomOutMacker(level),
+          size: new window.naver.maps.Size(38, 58),
+          anchor: new window.naver.maps.Point(19, 58),
+        },
+      });
+
       window.naver.maps.Event.addListener(
-        mapRef.current,
+        currentMarker,
         "zoom_changed",
         (zoom) => {
-          markerRef.current.setIcon({
+          currentMarker.setIcon({
             content:
-              zoom > 17
-                ? zoomInMarker("VEGAN", "브롱스")
-                : zoomOutMacker("VEGAN"),
+              zoom > 17 ? zoomInMarker(level, name) : zoomOutMacker(level),
             size: new window.naver.maps.Size(38, 58),
             anchor: new window.naver.maps.Point(19, 58),
           });
         }
       );
-      window.naver.maps.Event.addListener(mapRef.current, "tilesloaded", () => {
-        setLoading(false);
-      });
-    }
-  }, [mapRef, myLocation]);
-
-  useEffect(() => {
-    markerRef.current = new window.naver.maps.Marker({
-      position: new window.naver.maps.LatLng(
-        myLocation.latitude,
-        myLocation.longitude
-      ),
-      map: mapRef.current,
-      icon: {
-        content: zoomOutMacker("VEGAN"),
-        size: new window.naver.maps.Size(38, 58),
-        anchor: new window.naver.maps.Point(19, 58),
-      },
+      markerClickEvent(currentMarker, level, name, id);
     });
-  }, [myLocation]);
 
-  useEffect(() => {
-    function markerClickEvent(marker) {
+    function markerClickEvent(marker, level, restaurent_name, id) {
       window.naver.maps.Event.addListener(marker, "click", (e) => {
         mapRef.current.morph(e?.coord, 18);
         selectMarkerRef.current = marker;
-
+        setSelectRestaurent(id);
         if (!!selectMarkerRef.current) {
           selectMarkerRef.current.setIcon({
-            content: zoomInMarker("VEGAN", "브롱스"),
+            content: zoomInMarker(level, restaurent_name),
             size: new window.naver.maps.Size(38, 58),
             anchor: new window.naver.maps.Point(19, 58),
           });
         }
 
         marker.setIcon({
-          content: selectMarker("VEGAN", "브롱스"),
+          content: selectMarker(level, restaurent_name),
           size: new window.naver.maps.Size(38, 58),
           anchor: new window.naver.maps.Point(19, 58),
         });
         selectMarkerRef.current = marker;
       });
     }
-    markerClickEvent(markerRef.current);
-  }, [markerRef, myLocation]);
-
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
+  }, [
+    mapRestaurents?.restaurants_list,
+    markerRef,
+    myLocation,
+    setSelectRestaurent,
+  ]);
 
   return (
     <DefaultFitContainer id="map">

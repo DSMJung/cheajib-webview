@@ -5,9 +5,17 @@ import Review from "./Review";
 import ReviewAnswer from "./ReviewAnswer";
 import pencil from "../../assets/restaurantDetail/buttonIcon/pencil.png";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import queryKey from "../../utils/queryKey";
+import { restaurentReviewListResource } from "../../utils/api/resource";
+import dateFormet from "../../utils/function/dateFormet";
 const ReviewList = () => {
   const navigate = useNavigate();
   const { restaurant_id } = useParams();
+  const reviewListKey = queryKey.restaurents.reviews(restaurant_id);
+  const { data: reviewListData } = useQuery(reviewListKey, () =>
+    restaurentReviewListResource(restaurant_id)
+  );
   return (
     <>
       <ButtonContainer>
@@ -20,116 +28,27 @@ const ReviewList = () => {
       <IconButton
         icon={pencil}
         onClick={() => navigate(`/review_select_menu/${restaurant_id}`)}
-      ></IconButton>
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
       />
-      <ReviewAnswer
-        content={`김의찬님, 저희 파스타를 맛있게 드셔주셔서 감사합니다^^
-앞으로도 더 맛있는 파스타를 만들기 위해 노력하겠습니다`}
-        date={"오늘"}
-      ></ReviewAnswer>
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
-      <Review
-        content={`완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!
-완전 맛있어요 최강이다 사장님 만수무강하세요~!!`}
-        date={"오늘"}
-        userName={"김의찬"}
-        rating={4}
-      />
+      {reviewListData?.review_List.map((reviewInfo) => {
+        return (
+          <>
+            <Review
+              key={reviewInfo.review_id}
+              content={reviewInfo.content}
+              date={dateFormet(reviewInfo.created_at)}
+              userName={reviewInfo.name}
+              rating={reviewInfo.review_point}
+              imageArr={reviewInfo.image_list}
+            />
+            {reviewInfo.review_comment && (
+              <ReviewAnswer
+                content={reviewInfo.review_comment.comment}
+                date={dateFormet(reviewInfo.review_comment.created_at)}
+              ></ReviewAnswer>
+            )}
+          </>
+        );
+      })}
     </>
   );
 };

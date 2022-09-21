@@ -1,12 +1,31 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckBox from "../common/CheckBox";
-import brongs from "../../assets/test/brongs.png";
-const SelectMenu = ({ name, description, price, menu_image_url }) => {
+
+const SelectMenu = ({
+  name,
+  description,
+  price,
+  menu_image_url,
+  onCheck,
+  menu_id,
+}) => {
   const [isCheck, setIsCheck] = useState(false);
+
+  useEffect(() => {
+    isCheck
+      ? onCheck((state) => [...state, { menu_id, level: "FLEXITAREAN", name }])
+      : onCheck((state) => state.fileter((info) => info.menu_id !== menu_id));
+  }, [isCheck, menu_id, onCheck, name]);
+
   return (
     <ReviewMenuWrapper>
-      <CheckBox isChecked={isCheck} onClick={setIsCheck}></CheckBox>
+      <CheckBox
+        isChecked={isCheck}
+        onClick={() => {
+          setIsCheck(!isCheck);
+        }}
+      ></CheckBox>
       <MenuTextWrapper>
         <TextHeader>
           {name}

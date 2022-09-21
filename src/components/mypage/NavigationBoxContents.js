@@ -4,6 +4,10 @@ import VegetarianStage from "../common/VegetarianLevel";
 import { useState } from "react";
 import { veganLevelToKorean } from "../../utils/function/veganLevelToKorean";
 import { useNavigate } from "react-router-dom";
+import { QueryClient, useMutation, useQuery } from "react-query";
+import { levelResource, myInfoResource } from "../../utils/api/resource";
+import queryKey from "../../utils/queryKey";
+import { vegetarianLevelConverter } from "../../utils/api/converter";
 
 export const ReviewCheck = () => {
   const navigate = useNavigate();
@@ -40,21 +44,30 @@ export const Logout = () => {
     />
   );
 };
-export const VegetarianStepsSet = () => {
-  const [vegan, setVegan] = useState("LACTO_OVO");
 
+export const VegetarianStepsSet = () => {
+  const levelResourceKey = queryKey.users.level();
+  const { data: levelData, refetch } = useQuery(
+    levelResourceKey,
+    levelResource
+  );
+  const { mutate: levelMutate } = useMutation(vegetarianLevelConverter, {
+    onSuccess: () => refetch(),
+  });
+  const myInfoKey = queryKey.users.index();
+  const { data: myInfoData } = useQuery(myInfoKey, myInfoResource);
   return (
     <FillteringContainer>
       <SubText>채식 단계 설정</SubText>
       <TextBox>
-        <MainText>현재 김의찬님의 채식 단계는&nbsp;</MainText>
-        <HighlightText>{veganLevelToKorean(vegan)}</HighlightText>
+        <MainText>현재 {myInfoData?.name}님의 채식 단계는&nbsp;</MainText>
+        <HighlightText>{veganLevelToKorean(levelData?.level)}</HighlightText>
         <MainText>입니다</MainText>
       </TextBox>
       <VegetarianStage
         style={{ marginTop: "8px" }}
-        onChangeLevel={setVegan}
-        initalState={vegan}
+        onChangeLevel={levelMutate}
+        initalState={levelData?.level}
       ></VegetarianStage>
     </FillteringContainer>
   );

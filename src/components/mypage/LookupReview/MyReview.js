@@ -3,6 +3,7 @@ import ReviewImage from "../../review/ReviewImage";
 import styled from "@emotion/styled";
 import Rating from "../../common/Rating";
 import Arrow from "../../../assets/mypage/arrow.svg";
+import { useNavigate } from "react-router-dom";
 
 const MyReview = ({
   restaurantName,
@@ -10,9 +11,13 @@ const MyReview = ({
   content,
   rating,
   imageArr,
-  onClickRestaurentName,
+  restaurantId,
   onClickDelete,
+  answerContent,
+  answerDate,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <ReviewWrapper>
@@ -21,7 +26,7 @@ const MyReview = ({
           <Delete onClick={onClickDelete}>삭제</Delete>
           <div
             style={{ display: "flex", alignItems: "center" }}
-            onClick={onClickRestaurentName}
+            onClick={() => navigate(`/restaurent_detail/${restaurantId}`)}
           >
             <RestaurantName>{restaurantName}</RestaurantName>
             <img src={Arrow} style={{ width: "22px", marginTop: "2px" }} />
@@ -33,7 +38,9 @@ const MyReview = ({
           <Content>{content}</Content>
         </div>
       </ReviewWrapper>
-      <ReviewAnswer />
+      {answerContent && answerDate && (
+        <ReviewAnswer content={answerContent} date={answerDate} />
+      )}
     </>
   );
 };

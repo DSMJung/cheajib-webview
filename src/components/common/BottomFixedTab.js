@@ -17,7 +17,7 @@ const BottomFixedTab = () => {
           }}
           isActive={
             "/restaurant_list" === pathname ||
-            pathname.startsWith("/rastaurant_detail")
+            pathname.startsWith("/restaurant_detail")
           }
         ></ListIcon>
         <MapIcon

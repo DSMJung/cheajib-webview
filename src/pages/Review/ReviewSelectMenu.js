@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { menuSelectAtom } from "../../atom/menuSelectAtom";
 import BottomFixedButton from "../../components/common/BottomFixedButton";
-import { DefaultContainer } from "../../components/common/DefaultContainer";
 import NavBar from "../../components/common/NavBar";
 import SelectMenu from "../../components/review/SelectReviewMenu";
 import queryKey from "../../utils/queryKey";
@@ -12,6 +13,8 @@ const ReviewSelectMenu = () => {
   const { restaurant_id } = useParams();
   const menuQueryKey = queryKey.menu.restaurent_id(restaurant_id);
   const { data: menuList } = useQuery(menuQueryKey);
+  const setSelectedMenu = useSetRecoilState(menuSelectAtom);
+
   return (
     <>
       <NavBar
@@ -23,7 +26,11 @@ const ReviewSelectMenu = () => {
       />
       <MenuSelectBoxWrapper>
         {menuList?.menu_list.map((props) => (
-          <SelectMenu key={props.menu_id} {...props} />
+          <SelectMenu
+            onCheck={setSelectedMenu}
+            key={props.menu_id}
+            {...props}
+          />
         ))}
       </MenuSelectBoxWrapper>
       <BottomFixedButton

@@ -2,12 +2,9 @@ import axios from "axios";
 import queryKey from "../queryKey";
 import { instance } from "./instance";
 
-export const loginGenerator = async () => {
-  return (
-    await axios.post(
-      "https://nid.naver.com/oauth2.0/authorize?client_id=wl9JLG_UF_57OZZgjkms&response_type=code&redirect_uri=http://3.34.174.96:8080/naver/redirect&state=STATE_STRING"
-    )
-  ).data;
+export const loginGenerator = async (code) => {
+  const generatorKey = queryKey.users.auth(code);
+  return (await instance.get(generatorKey)).data;
 };
 
 //api 수정 필요
@@ -16,7 +13,7 @@ export const menuGenerator = async ({
   name,
   price,
   description,
-  menu_image,
+  menu_image_url,
   level,
 }) => {
   const generatorKey = queryKey.menu.restaurent_id(restaurent_id);
@@ -24,7 +21,7 @@ export const menuGenerator = async ({
     name,
     price,
     description,
-    menu_image,
+    menu_image_url,
     level,
   });
 };
@@ -41,19 +38,24 @@ export const imageGenerator = async (BlobImages) => {
 };
 
 export const reviewGenerator = ({
-  restaurent_id,
+  restaurant_id,
   review_point,
-  image_list,
+  image_url,
   content,
   menu_list,
 }) => {
-  const generatorKey = queryKey.review.restaurnat_id(restaurent_id);
+  const generatorKey = queryKey.review.restaurant_id(restaurant_id);
   return instance.post(generatorKey, {
     review_point,
-    image_list,
+    image_url,
     content,
     menu_list,
   });
+};
+
+export const replyGenerator = (review_id, comment) => {
+  const generatorKey = queryKey.comments.review_id(review_id);
+  return instance.post(generatorKey, { comment });
 };
 
 export const owenrCertificationGenerator = ({ id_card, business_card }) => {

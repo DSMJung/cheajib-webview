@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { menuSelectAtom } from "../../atom/menuSelectAtom";
 import BottomFixedButton from "../../components/common/BottomFixedButton";
 import { DefaultContainer } from "../../components/common/DefaultContainer";
 import NavBar from "../../components/common/NavBar";
@@ -9,20 +11,22 @@ import QImageBox from "../../components/common/QImageBox";
 import Rating from "../../components/common/Rating";
 import VegetarianStage from "../../components/common/VegetarianLevel";
 import { imageGenerator, reviewGenerator } from "../../utils/api/generator";
+import { veganLevelToKorean } from "../../utils/function/veganLevelToKorean";
 
 const ReviewWrite = () => {
   const [images, setImages] = useState([]);
-  const [rating, setRating] = useState(1);
-  const [menuList, setMenuList] = useState([]);
+  const [rating, setRating] = useState(5);
+  const [menuList, setMenuList] = useRecoilState(menuSelectAtom);
   const [content, setContent] = useState("");
-  const {} = useParams();
   const navigate = useNavigate();
-  const { mutate: imageMutate, data: imageUrl } = useMutation(imageGenerator, {
-    onSuccess: () => {
+  const { restaurant_id } = useParams();
+
+  const { mutate: imageMutate } = useMutation(imageGenerator, {
+    onSuccess: (data) => {
       reviewMutate({
-        restaurent_id: "",
+        restaurent_id: restaurant_id,
         content: content,
-        image_list: imageUrl.image_url_list,
+        image_url: data.image_url_list,
         menu_list: menuList,
         review_point: rating,
       });
@@ -30,14 +34,26 @@ const ReviewWrite = () => {
   });
 
   const { mutate: reviewMutate } = useMutation(reviewGenerator, {
+    onSuccess: () => navigate(`/review_write/${restaurant_id}`),
     onError: (e) => alert(e),
   });
+
+  const onDeleteVeganLevel = (id) => {
+    setMenuList((state) => state.filter((info) => info.menu_id !== id));
+  };
 
   const submitReview = () => {
     const imagesBlob = images.map((files) => files.fileBlob);
     imageMutate(imagesBlob);
   };
 
+  const onChangeLevel = (menu_id, level) => {
+    const changeArray = menuList.map((info) =>
+      info.menu_id === menu_id ? { menu_id, level } : info
+    );
+
+    setMenuList(changeArray);
+  };
   return (
     <DefaultContainer>
       <NavBar
@@ -64,21 +80,30 @@ const ReviewWrite = () => {
           onChange={(e) => setContent(e.target.value)}
           value={content}
         ></ReviewTextArea>
-        <SelectVeganLevelWrapper>
-          <VeganLevelSelectHeader>
-            <VegetarianText>
-              우유 라면의 채식 단계는 <i>락토∙오보</i>입니다.
-            </VegetarianText>
-            <span>선택안함</span>
-          </VeganLevelSelectHeader>
-          <VegetarianStage></VegetarianStage>
-        </SelectVeganLevelWrapper>
+
+        {menuList.map(({ menu_id, level, name }) => (
+          <SelectVeganLevelWrapper key={menu_id}>
+            <VeganLevelSelectHeader>
+              <VegetarianText>
+                {name}의 채식 단계는 <i>{veganLevelToKorean(level)}</i>
+                입니다.
+              </VegetarianText>
+              <span onClick={() => onDeleteVeganLevel(menu_id)}>선택안함</span>
+            </VeganLevelSelectHeader>
+            <VegetarianStage
+              initalState={level}
+              onChangeLevel={(changeLevel) => {
+                onChangeLevel(menu_id, changeLevel);
+              }}
+            ></VegetarianStage>
+          </SelectVeganLevelWrapper>
+        ))}
       </InputsWrapper>
 
       <BottomFixedButton
         isFill
         onClick={() => submitReview()}
-        // onClick={() => navigate("/rastaurant_detail/1")}
+        // onClick={() => navigate("/restaurant_detail/1")}
       >
         완료
       </BottomFixedButton>

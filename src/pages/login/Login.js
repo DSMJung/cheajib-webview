@@ -5,29 +5,45 @@ import Button from "../../components/login/Button";
 import Google from "../../assets/login/google.png";
 import Naver from "../../assets/login/naver.png";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { loginGenerator } from "../../utils/api/generator";
 import { useEffect } from "react";
+import getParamsMap from "../../utils/function/getParamsMap";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { mutate } = useMutation(loginGenerator, {
-    onSuccess: () => navigate("/map"),
-  });
-
-  const initializeNaverLogin = () => {
-    const naverLogin = new window.naver.LoginWithNaverId({
-      clientId: "wl9JLG_UF_57OZZgjkms",
-      callbackUrl: "http://localhost:3000/",
-      isPopup: false,
-      loginButton: { color: "white", type: 1, height: "47" },
-    });
-    naverLogin.init();
-  };
+  const accessToken = localStorage.getItem("access_token");
+  const queryString = window.location.search;
 
   useEffect(() => {
-    initializeNaverLogin();
-  }, []);
+    if (accessToken) navigate("/map");
+  }, [accessToken, navigate]);
+
+  const { mutate: loginMutate } = useMutation(loginGenerator, {
+    onSuccess: (data) => {
+      localStorage.setItem("access_token", data?.access_token);
+      navigate("/map");
+    },
+  });
+
+  useEffect(() => {
+    const params = getParamsMap(queryString);
+    params?.code && loginMutate(params.code);
+  }, [loginMutate, queryString]);
+
+  // const initializeNaverLogin = () => {
+  //   const naverLogin = new window.naver.LoginWithNaverId({
+  //     clientId: "wl9JLG_UF_57OZZgjkms",
+  //     callbackUrl: "http://localhost:3000/",
+  //     isPopup: false,
+  //     loginButton: { color: "white", type: 1, height: "47" },
+  //   });
+  //   naverLogin.init();
+  // };
+
+  // useEffect(() => {
+  //   initializeNaverLogin();
+  // }, []);
 
   return (
     <LoginWrapper>
@@ -36,21 +52,17 @@ const Login = () => {
           새로운&nbsp;<SubTitleHighlight>비거니즘</SubTitleHighlight>의 시작,
         </SubTitle>
         <Title>채집</Title>
-        <img src={Logo} style={{}} />
+        <img src={Logo} />
       </TextWrapper>
       <ButtonWrapper>
-        <Button
-          text="구글로 로그인"
-          backgroundColor={"#FFFFFF"}
-          color={"#8D8D8D"}
-          onClick={() => navigate("/map")}
-          img={Google}
-        />
         <Button
           text="네이버로 로그인"
           backgroundColor={"#2CB400"}
           color={"#FFFFFF"}
-          onClick={() => mutate()}
+          onClick={() =>
+            (window.location.href =
+              "https://nid.naver.com/oauth2.0/authorize?client_id=wl9JLG_UF_57OZZgjkms&response_type=code&redirect_uri=http://localhost:3000&state=STATE_STRING")
+          }
           img={Naver}
         />
         <div id="naverIdLogin"></div>

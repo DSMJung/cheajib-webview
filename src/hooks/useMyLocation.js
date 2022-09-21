@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { currentLocationAtom } from "../atom/currentLocationAtom";
 
 const useMyLocation = () => {
   const [myLocation, setMyLocation] = useState({
     latitude: null,
     longitude: null,
   });
+  const setCurrentLocation = useSetRecoilState(currentLocationAtom);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -24,6 +27,10 @@ const useMyLocation = () => {
       setMyLocation({ latitude: 37.4979517, longitude: 127.0276188 });
     }
   }, []);
+
+  useEffect(() => {
+    setCurrentLocation(myLocation);
+  }, [myLocation, setCurrentLocation]);
 
   return { myLocation };
 };

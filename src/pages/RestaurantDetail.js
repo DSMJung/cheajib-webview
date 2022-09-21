@@ -5,9 +5,18 @@ import NavBar from "../components/common/NavBar";
 import Tab from "../components/restaurantDetail/Tab";
 import RestaurantTitle from "../components/restaurantDetail/RestaurantTitle";
 import BottomFixedTab from "../components/common/BottomFixedTab";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import queryKey from "../utils/queryKey";
+import { restaurantDetailResource } from "../utils/api/resource";
 const RestaurantDetail = () => {
   const navigate = useNavigate();
+  const { restaurant_id } = useParams();
+  const restaurentDetail = queryKey.restaurents.detail(restaurant_id);
+  const { data: restaurentDetailData } = useQuery(restaurentDetail, () =>
+    restaurantDetailResource(restaurant_id)
+  );
+
   return (
     <DefaultContainer>
       <NavBar
@@ -18,12 +27,13 @@ const RestaurantDetail = () => {
         headerColor="transparent"
         headerBox={false}
       ></NavBar>
-      <TestImage /> {/* 이미지 만들면 수정해야 하는 부분*/}
+      <TestImage src={restaurentDetailData?.image_url_list} />{" "}
+      {/* 이미지 만들면 수정해야 하는 부분*/}
       <RestaurantTitle
-        address={"서교동 346-39번지 하동 1층 마포구 서울특별시 KR"}
-        isCertification={false}
-        restaurantName={"브롱스"}
-      ></RestaurantTitle>
+        address={restaurentDetailData?.address}
+        isCertification={restaurentDetailData?.is_verify}
+        restaurantName={restaurentDetailData?.restaurant_name}
+      />
       <Tab></Tab>
       <BottomFixedTab></BottomFixedTab>
     </DefaultContainer>
@@ -32,6 +42,10 @@ const RestaurantDetail = () => {
 
 const TestImage = styled.div`
   width: 100%;
+  background-image: url(${({ src }) => src});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: ${({ theme }) => theme.grey300};
   min-height: 256px;
 `;

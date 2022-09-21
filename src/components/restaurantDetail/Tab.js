@@ -20,26 +20,24 @@ const Tab = () => {
       <TabWrapper>
         {tabtitle.map((title, idx) => {
           return (
-            <>
-              <TabItem
-                key={idx}
-                style={
-                  activetab === idx
-                    ? {
-                        color: theme.main,
-                        borderColor: theme.main,
-                        borderWidth: "2px",
-                        height: "44.5px",
-                      }
-                    : { color: theme.grey500 }
-                }
-                onClick={() => {
-                  onClickTab(idx);
-                }}
-              >
-                {title}
-              </TabItem>
-            </>
+            <TabItem
+              key={idx}
+              style={
+                activetab === idx
+                  ? {
+                      color: theme.main,
+                      borderColor: theme.main,
+                      borderWidth: "2px",
+                      height: "44.5px",
+                    }
+                  : { color: theme.grey500 }
+              }
+              onClick={() => {
+                onClickTab(idx);
+              }}
+            >
+              {title}
+            </TabItem>
           );
         })}
       </TabWrapper>

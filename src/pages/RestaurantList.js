@@ -1,16 +1,38 @@
 import { DefaultContainer } from "../components/common/DefaultContainer";
 import NavBar from "../components/common/NavBar";
 import RestaurantItem from "../components/restaurantList/RestaurantItem";
-import brongs from "../assets/test/brongs.png";
 import styled from "@emotion/styled";
 import FilteringButton from "../components/common/FilteringButton";
-import { BottomSheet } from "react-spring-bottom-sheet";
-import BottomFixedButton from "../components/common/BottomFixedButton";
 import BottomFixedTab from "../components/common/BottomFixedTab";
 import { useNavigate } from "react-router-dom";
+import queryKey from "../utils/queryKey";
+import { useQuery } from "react-query";
+import { restaurentPreviewListResource } from "../utils/api/resource";
+import { useRecoilValue } from "recoil";
+import { filteringAtom } from "../atom/filteringAtom";
+import { currentLocationAtom } from "../atom/currentLocationAtom";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
+  const filteringValue = useRecoilValue(filteringAtom);
+  const currentLocationValue = useRecoilValue(currentLocationAtom);
+  const restaurentListKey = queryKey.restaurents.lists(
+    currentLocationValue.latitude,
+    currentLocationValue.longitude,
+    filteringValue.level,
+    filteringValue.star
+  );
+  const { data: restaurentList } = useQuery(restaurentListKey, () =>
+    restaurentPreviewListResource(
+      currentLocationValue.latitude,
+      currentLocationValue.longitude,
+      filteringValue.level,
+      filteringValue.star
+    )
+  );
+
+  console.log(currentLocationValue, filteringValue);
+
   return (
     <>
       <NavBar
@@ -19,83 +41,31 @@ const RestaurantList = () => {
         position="fixed"
         headerColor="white"
       ></NavBar>
-      <FilteringButton></FilteringButton>
+      <FilteringButton />
       <RestaurantListContainer>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          restaurantImage={brongs}
-          isCertification
-          onClick={() =>
-            navigate("/rastaurant_detail/b1dcfd2e-9116-4f8b-a239-d97ebc0c70d3")
-          }
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          restaurantImage={brongs}
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          restaurantImage={brongs}
-          isCertification
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          isCertification
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          isCertification
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          isCertification
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          isCertification
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          isCertification
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          isCertification
-        ></RestaurantItem>
-        <RestaurantItem
-          address="서교동 346-39번지 하동 1층 마포구 서울특별시KR"
-          rating="4.9"
-          recommendMenu="우유 빵, 우유 라면"
-          restaurantName="브롱스"
-          isCertification
-        ></RestaurantItem>
+        {restaurentList?.restaurants_list.map(
+          ({
+            id,
+            name,
+            address,
+            star_point,
+            main_menu,
+            image_url,
+            is_verify,
+          }) => (
+            <RestaurantItem
+              key={id}
+              address={address}
+              rating={star_point}
+              recommendMenu={main_menu}
+              restaurantName={name}
+              restaurantImage={image_url}
+              isCertification={is_verify}
+              onClick={() => navigate(`/restaurant_detail/${id}`)}
+            />
+          )
+        )}
+
         <BottomFixedTab></BottomFixedTab>
       </RestaurantListContainer>
     </>
