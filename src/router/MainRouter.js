@@ -11,6 +11,7 @@ import {
   ReviewManage,
   ReviewSelectMenu,
   ReviewWrite,
+  TermsOfService,
 } from "../pages";
 import MyPage from "../pages/MyPage";
 const MainRouter = () => {
@@ -42,6 +43,7 @@ const MainRouter = () => {
           path="registration_card_check"
           element={<RegistrationCardCheck />}
         ></Route>
+        <Route path="terms_of_service" element={<TermsOfService />}></Route>
         <Route path="review_look_up" element={<ReviewLookUp />}></Route>
         <Route path="review_manage" element={<ReviewManage />}></Route>
       </Route>

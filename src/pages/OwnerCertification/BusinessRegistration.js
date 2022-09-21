@@ -12,9 +12,11 @@ import {
   owenrCertificationGenerator,
 } from "../../utils/api/generator";
 import queryKey from "../../utils/queryKey";
+import AcceptTheTerms from "../../components/owner/AcceptTheTerms";
 
 const BusinessRegistration = () => {
   const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
   const [imageState, setImageState] = useRecoilState(ownerCertificationAtom);
   const { mutate: imageMutate } = useMutation(imageGenerator, {
     onSuccess: (data) =>
@@ -54,19 +56,29 @@ const BusinessRegistration = () => {
           }
         />
         <HelperText>*5MB 까지 등록 가능합니다.</HelperText>
-        <BottomFixedButton
-          isFill
-          disable={!imageState.businessRegistration.fileBlob}
-          onClick={() =>
-            imageMutate([
-              imageState.registrationCard.fileBlob,
-              imageState.businessRegistration.fileBlob,
-            ])
-          }
-        >
-          완료
-        </BottomFixedButton>
       </div>
+      <div style={{ padding: "20px 13px 0 18px" }}>
+        <AcceptTheTerms
+          isCheck={isChecked}
+          content={"개인정보 수집 동의"}
+          onClick={() => {
+            setIsChecked(!isChecked);
+          }}
+        />
+      </div>
+
+      <BottomFixedButton
+        isFill
+        disable={!(imageState.businessRegistration.fileBlob && isChecked)}
+        onClick={() =>
+          imageMutate([
+            imageState.registrationCard.fileBlob,
+            imageState.businessRegistration.fileBlob,
+          ])
+        }
+      >
+        완료
+      </BottomFixedButton>
     </>
   );
 };

@@ -10,3 +10,4 @@ export { default as AddMenu } from "./addMenu/AddMenu";
 export { default as BusinessRegistration } from "./ownerCertification/BusinessRegistration";
 export { default as RegistrationCardCheck } from "./ownerCertification/RegistrationCardCheck";
 export { default as ReviewManage } from "./ReviewManage";
+export { default as TermsOfService } from "./ownerCertification/TermsOfService";
