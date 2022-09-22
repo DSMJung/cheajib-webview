@@ -24,24 +24,28 @@ const Map = () => {
     filteringValue.level,
     filteringValue.star
   );
+
+  const [markers, setMarkers] = useState([]);
   const setSelectRestaurent = useSetRecoilState(restaurentSelectAtom);
 
-  const { data: mapRestaurents } = useQuery([mapKey], () => {
-    if (location) {
-      restaurentMapResource({
-        level: filteringValue.level,
-        star: filteringValue.star,
-        x: location.x,
-        y: location.y,
-      });
+  const { data: mapRestaurents, isLoading: mapListLoding } = useQuery(
+    mapKey,
+    () => {
+      if (location?.x && location.y) {
+        return restaurentMapResource({
+          level: filteringValue.level,
+          star: filteringValue.star,
+          x: location.x,
+          y: location.y,
+        });
+      }
     }
-  });
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (myLocation.latitude && myLocation.longitude) {
       setLocation({ x: myLocation.latitude, y: myLocation.longitude });
-      console.log(myLocation);
       mapRef.current = new window.naver.maps.Map("map", {
         center: new window.naver.maps.LatLng(
           myLocation.latitude,
@@ -73,40 +77,47 @@ const Map = () => {
   }, [mapRef, myLocation, setCurrentLocation]);
 
   useEffect(() => {
-    mapRestaurents?.restaurants_list.map(({ name, level, id }) => {
-      const currentMarker = new window.naver.maps.Marker({
-        position: new window.naver.maps.LatLng(
-          myLocation.latitude,
-          myLocation.longitude
-        ),
-        map: mapRef.current,
-        icon: {
-          content: zoomOutMacker(level),
-          size: new window.naver.maps.Size(38, 58),
-          anchor: new window.naver.maps.Point(19, 58),
-        },
-      });
+    markers.map((marker) => {
+      marker.setMap(null);
+    });
 
-      window.naver.maps.Event.addListener(
-        currentMarker,
-        "zoom_changed",
-        (zoom) => {
-          currentMarker.setIcon({
+    mapRestaurents?.restaurants_list.map(
+      ({ name, level, id, latitude, longitude }) => {
+        const currentMarker = new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(latitude, longitude),
+          map: mapRef.current,
+          icon: {
             content:
-              zoom > 17 ? zoomInMarker(level, name) : zoomOutMacker(level),
+              mapRef.current.getZoom() > 17
+                ? zoomInMarker(level, name)
+                : zoomOutMacker(level),
             size: new window.naver.maps.Size(38, 58),
             anchor: new window.naver.maps.Point(19, 58),
-          });
-        }
-      );
-      markerClickEvent(currentMarker, level, name, id);
-    });
+          },
+        });
+        setMarkers((state) => [...state, currentMarker]);
+
+        window.naver.maps.Event.addListener(
+          mapRef.current,
+          "zoom_changed",
+          (zoom) => {
+            currentMarker.setIcon({
+              content:
+                zoom > 17 ? zoomInMarker(level, name) : zoomOutMacker(level),
+              size: new window.naver.maps.Size(38, 58),
+              anchor: new window.naver.maps.Point(19, 58),
+            });
+          }
+        );
+        markerClickEvent(currentMarker, level, name, id);
+      }
+    );
 
     function markerClickEvent(marker, level, restaurent_name, id) {
       window.naver.maps.Event.addListener(marker, "click", (e) => {
         mapRef.current.morph(e?.coord, 18);
-        selectMarkerRef.current = marker;
         setSelectRestaurent(id);
+
         if (!!selectMarkerRef.current) {
           selectMarkerRef.current.setIcon({
             content: zoomInMarker(level, restaurent_name),
@@ -120,19 +131,15 @@ const Map = () => {
           size: new window.naver.maps.Size(38, 58),
           anchor: new window.naver.maps.Point(19, 58),
         });
+
         selectMarkerRef.current = marker;
       });
     }
-  }, [
-    mapRestaurents?.restaurants_list,
-    markerRef,
-    myLocation,
-    setSelectRestaurent,
-  ]);
+  }, [mapRestaurents, markerRef, myLocation, setSelectRestaurent]);
 
   return (
     <DefaultFitContainer id="map">
-      <Spinner loading={loading}></Spinner>
+      <Spinner loading={loading || mapListLoding}></Spinner>
     </DefaultFitContainer>
   );
 };

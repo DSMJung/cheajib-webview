@@ -6,12 +6,12 @@ const queryKey = {
   },
   restaurents: {
     map: (x, y, level, star) =>
-      `/restaurents/lists/map?x=${x}&y=${y}&level=${level}&star=${star}`,
-    menu: (restaurant_id) => `/restaurents/menu/${restaurant_id}`,
-    reviews: (restaurant_id) => `/restaurents/reviews/${restaurant_id}`,
-    restaurant_id: (restaurant_id) => `/restaurents/${restaurant_id}`,
+      `/restaurants/lists/map?x=${x}&y=${y}&level=${level}&star=${star}`,
+    menu: (restaurant_id) => `/restaurants/menu/${restaurant_id}`,
+    reviews: (restaurant_id) => `/restaurants/reviews/${restaurant_id}`,
+    restaurant_id: (restaurant_id) => `/restaurants/${restaurant_id}`,
     lists: (x, y, level, star) =>
-      `/restaurents/lists?x=${x}&y=${y}&level=${level}&star=${star}`,
+      `/restaurants/lists?x=${x}&y=${y}&level=${level}&star=${star}`,
     detail: (restaurant_id) => `/restaurants/details/${restaurant_id}`,
     info: (restaurent_id) => `/restaurants/info/${restaurent_id}`,
   },

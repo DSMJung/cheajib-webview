@@ -40,7 +40,10 @@ export const Logout = () => {
     <NavigationBox
       subText="기기 내 계정에서 로그아웃하기"
       mainText={LogoutText}
-      onClick={() => navigate("/")}
+      onClick={() => {
+        localStorage.removeItem("access_token");
+        navigate("/");
+      }}
     />
   );
 };

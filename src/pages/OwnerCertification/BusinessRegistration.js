@@ -13,31 +13,36 @@ import {
 } from "../../utils/api/generator";
 import queryKey from "../../utils/queryKey";
 import AcceptTheTerms from "../../components/owner/AcceptTheTerms";
+import Spinner from "../../components/common/Spinner";
 
 const BusinessRegistration = () => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [imageState, setImageState] = useRecoilState(ownerCertificationAtom);
-  const { mutate: imageMutate } = useMutation(imageGenerator, {
-    onSuccess: (data) =>
-      ownerCertificationMutate({
-        id_card: data?.image_url_list[0],
-        business_card: data?.image_url_list[1],
-      }),
-    onError: () => alert("오류가 발생하였습니다."),
-  });
-  const { mutate: ownerCertificationMutate } = useMutation(
-    owenrCertificationGenerator,
+  const { mutate: imageMutate, isLoading: imageLoding } = useMutation(
+    imageGenerator,
     {
-      onSuccess: () => {
-        navigate("/map");
-      },
+      onSuccess: (data) =>
+        ownerCertificationMutate({
+          id_card: data?.image_url_list[0],
+          business_card: data?.image_url_list[1],
+        }),
       onError: () => alert("오류가 발생하였습니다."),
     }
   );
+  const {
+    mutate: ownerCertificationMutate,
+    isLoading: ownerCertificationLoding,
+  } = useMutation(owenrCertificationGenerator, {
+    onSuccess: () => {
+      navigate("/map");
+    },
+    onError: () => alert("오류가 발생하였습니다."),
+  });
 
   return (
     <>
+      <Spinner loading={imageLoding || ownerCertificationLoding} />
       <NavBar
         isBack
         isBlack

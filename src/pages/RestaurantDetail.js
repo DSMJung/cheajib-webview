@@ -9,16 +9,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import queryKey from "../utils/queryKey";
 import { restaurantDetailResource } from "../utils/api/resource";
+import Spinner from "../components/common/Spinner";
 const RestaurantDetail = () => {
   const navigate = useNavigate();
   const { restaurant_id } = useParams();
   const restaurentDetail = queryKey.restaurents.detail(restaurant_id);
-  const { data: restaurentDetailData } = useQuery(restaurentDetail, () =>
-    restaurantDetailResource(restaurant_id)
-  );
+  const { data: restaurentDetailData, isLoading: restaurantDetailLoding } =
+    useQuery(restaurentDetail, () => restaurantDetailResource(restaurant_id));
 
   return (
     <DefaultContainer>
+      <Spinner loading={restaurantDetailLoding} />
       <NavBar
         isBack
         onClickBack={() => navigate(-1)}

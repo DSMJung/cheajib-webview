@@ -5,24 +5,27 @@ import queryKey from "../../utils/queryKey";
 import { restaurantPreviewResource } from "../../utils/api/resource";
 import { useRecoilValue } from "recoil";
 import { restaurentSelectAtom } from "../../atom/restaurentSelectAtom";
+import { useNavigate } from "react-router-dom";
 
 const MapRestaurantItem = () => {
   const selectRestaurentValue = useRecoilValue(restaurentSelectAtom);
   const restaurentPreviewKey = queryKey.restaurents.restaurant_id(
     selectRestaurentValue
   );
-
+  const navigate = useNavigate();
   const { data: restaurentPreviewData } = useQuery(restaurentPreviewKey, () =>
     restaurantPreviewResource(selectRestaurentValue)
   );
 
   return (
     <DefaultWrapper>
-      <MapRestaurantWrapper>
+      <MapRestaurantWrapper
+        onClick={() => navigate(`/restaurant_detail/${selectRestaurentValue}`)}
+      >
         <RestaurantItem
           address={restaurentPreviewData?.address}
           rating={restaurentPreviewData?.star_point}
-          recommendMenu={restaurentPreviewData?.main_menu_list}
+          recommendMenu={restaurentPreviewData?.main_menu}
           restaurantName={restaurentPreviewData?.restaurant_name}
           restaurantImage={restaurentPreviewData?.main_image_url}
           isCertification={restaurentPreviewData?.is_verify}

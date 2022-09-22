@@ -31,19 +31,12 @@ const RestaurantList = () => {
     )
   );
 
-  console.log(currentLocationValue, filteringValue);
-
   return (
     <>
-      <NavBar
-        isBlack
-        pageTitle={"목록"}
-        position="fixed"
-        headerColor="white"
-      ></NavBar>
+      <NavBar isBlack pageTitle={"목록"} position="fixed" headerColor="white" />
       <FilteringButton />
       <RestaurantListContainer>
-        {restaurentList?.restaurants_list.map(
+        {restaurentList?.restaurant_list.map(
           ({
             id,
             name,

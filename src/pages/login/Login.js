@@ -9,6 +9,7 @@ import { useMutation } from "react-query";
 import { loginGenerator } from "../../utils/api/generator";
 import { useEffect } from "react";
 import getParamsMap from "../../utils/function/getParamsMap";
+import Spinner from "../../components/common/Spinner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Login = () => {
     if (accessToken) navigate("/map");
   }, [accessToken, navigate]);
 
-  const { mutate: loginMutate } = useMutation(loginGenerator, {
+  const { mutate: loginMutate, isLoading } = useMutation(loginGenerator, {
     onSuccess: (data) => {
       localStorage.setItem("access_token", data?.access_token);
       navigate("/map");
@@ -46,28 +47,31 @@ const Login = () => {
   // }, []);
 
   return (
-    <LoginWrapper>
-      <TextWrapper>
-        <SubTitle>
-          새로운&nbsp;<SubTitleHighlight>비거니즘</SubTitleHighlight>의 시작,
-        </SubTitle>
-        <Title>채집</Title>
-        <img src={Logo} />
-      </TextWrapper>
-      <ButtonWrapper>
-        <Button
-          text="네이버로 로그인"
-          backgroundColor={"#2CB400"}
-          color={"#FFFFFF"}
-          onClick={() =>
-            (window.location.href =
-              "https://nid.naver.com/oauth2.0/authorize?client_id=wl9JLG_UF_57OZZgjkms&response_type=code&redirect_uri=http://localhost:3000&state=STATE_STRING")
-          }
-          img={Naver}
-        />
-        <div id="naverIdLogin"></div>
-      </ButtonWrapper>
-    </LoginWrapper>
+    <>
+      <Spinner loading={isLoading} />
+      <LoginWrapper>
+        <TextWrapper>
+          <SubTitle>
+            새로운&nbsp;<SubTitleHighlight>비거니즘</SubTitleHighlight>의 시작,
+          </SubTitle>
+          <Title>채집</Title>
+          <img src={Logo} />
+        </TextWrapper>
+        <ButtonWrapper>
+          <Button
+            text="네이버로 로그인"
+            backgroundColor={"#2CB400"}
+            color={"#FFFFFF"}
+            onClick={() =>
+              (window.location.href =
+                "https://nid.naver.com/oauth2.0/authorize?client_id=wl9JLG_UF_57OZZgjkms&response_type=code&redirect_uri=http://localhost:3000/&state=STATE_STRING")
+            }
+            img={Naver}
+          />
+          <div id="naverIdLogin"></div>
+        </ButtonWrapper>
+      </LoginWrapper>
+    </>
   );
 };
 
@@ -92,7 +96,7 @@ const Title = styled.p`
   color: ${({ theme }) => theme.white};
 `;
 
-const SubTitle = styled.p`
+const SubTitle = styled.span`
   margin-bottom: 16px;
   font-size: 24px;
   display: flex;

@@ -25,9 +25,7 @@ const RestaurantItem = ({
             <img src={star} />
             <p>{rating}</p>
           </RactingState>
-          <RecommendedMenu>
-            {recommendMenu?.map((info) => `${info} `)}
-          </RecommendedMenu>
+          <RecommendedMenu>{recommendMenu}</RecommendedMenu>
         </EtcInfoContainer>
       </ItemInfoContainer>
     </ItemContainer>
