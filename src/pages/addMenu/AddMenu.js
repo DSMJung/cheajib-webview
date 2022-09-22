@@ -30,12 +30,11 @@ const AddMenu = () => {
 
   const { mutate: imageMutate } = useMutation(imageGenerator, {
     onSuccess: (data) => {
-      console.log(data);
       menuAddMutate({
         description: inputsState.description,
         level: inputsState.level,
         price: inputsState.price,
-        x: data.image_url_list[0],
+        menu_image_url: data.image_url_list[0],
         name: inputsState.name,
         restaurent_id: restaurant_id,
       });

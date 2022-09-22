@@ -14,13 +14,15 @@ const ReviewSelectMenu = () => {
   const menuQueryKey = queryKey.menu.restaurent_id(restaurant_id);
   const { data: menuList } = useQuery(menuQueryKey);
   const setSelectedMenu = useSetRecoilState(menuSelectAtom);
+  const restaurantDetailKey = queryKey.restaurents.detail(restaurant_id);
+  const { data: restaurantDetailData } = useQuery(restaurantDetailKey);
 
   return (
     <>
       <NavBar
         isBack
         isBlack
-        pageTitle={"브롱스"}
+        pageTitle={restaurantDetailData?.restaurant_name}
         headerBox={false}
         onClickBack={() => navigate(-1)}
       />

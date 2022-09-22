@@ -22,13 +22,13 @@ const RestaurantDetail = () => {
       <Spinner loading={restaurantDetailLoding} />
       <NavBar
         isBack
-        onClickBack={() => navigate(-1)}
+        onClickBack={() => navigate("/restaurant_list")}
         isBlack={false}
         position="absolute"
         headerColor="transparent"
         headerBox={false}
       ></NavBar>
-      <TestImage src={restaurentDetailData?.image_url_list} />{" "}
+      <TestImage src={restaurentDetailData?.image_url} />{" "}
       {/* 이미지 만들면 수정해야 하는 부분*/}
       <RestaurantTitle
         address={restaurentDetailData?.address}

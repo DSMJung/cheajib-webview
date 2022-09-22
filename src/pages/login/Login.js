@@ -64,7 +64,7 @@ const Login = () => {
             color={"#FFFFFF"}
             onClick={() =>
               (window.location.href =
-                "https://nid.naver.com/oauth2.0/authorize?client_id=wl9JLG_UF_57OZZgjkms&response_type=code&redirect_uri=http://localhost:3000/&state=STATE_STRING")
+                "https://nid.naver.com/oauth2.0/authorize?client_id=wl9JLG_UF_57OZZgjkms&response_type=code&redirect_uri=https://cheajib-client.web.app/&state=STATE_STRING")
             }
             img={Naver}
           />

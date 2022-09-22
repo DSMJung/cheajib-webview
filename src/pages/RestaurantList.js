@@ -16,6 +16,7 @@ const RestaurantList = () => {
   const navigate = useNavigate();
   const filteringValue = useRecoilValue(filteringAtom);
   const currentLocationValue = useRecoilValue(currentLocationAtom);
+
   const restaurentListKey = queryKey.restaurents.lists(
     currentLocationValue.latitude,
     currentLocationValue.longitude,

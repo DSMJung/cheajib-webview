@@ -16,8 +16,8 @@ const MenuItem = ({
         <MenuHeaderContentContainer>
           <img src={vegetarianLevelImage(vegetarianLevel)}></img>
           <h3>{menuName}</h3>
-          <p>{reliability}%</p>
-          <span>{`(${participants})+`}</span>
+          <p>{reliability}</p>
+          <span>{`(${participants})`}</span>
         </MenuHeaderContentContainer>
         <DescriptionArea>{description}</DescriptionArea>
         <MenuPrice>{price}원</MenuPrice>
@@ -98,7 +98,7 @@ const MenuImageBox = styled.div`
   background-image: url(${({ src }) => src});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-color: ${({ theme }) => theme.grey300};
 `;
 

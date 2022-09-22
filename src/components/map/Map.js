@@ -28,6 +28,9 @@ const Map = () => {
   const [markers, setMarkers] = useState([]);
   const setSelectRestaurent = useSetRecoilState(restaurentSelectAtom);
 
+  useEffect(() => {
+    setSelectRestaurent("");
+  }, []);
   const { data: mapRestaurents, isLoading: mapListLoding } = useQuery(
     mapKey,
     () => {
@@ -120,7 +123,7 @@ const Map = () => {
 
         if (!!selectMarkerRef.current) {
           selectMarkerRef.current.setIcon({
-            content: zoomInMarker(level, restaurent_name),
+            content: selectMarker(level, restaurent_name),
             size: new window.naver.maps.Size(38, 58),
             anchor: new window.naver.maps.Point(19, 58),
           });

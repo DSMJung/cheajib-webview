@@ -15,7 +15,7 @@ const SelectMenu = ({
   useEffect(() => {
     isCheck
       ? onCheck((state) => [...state, { menu_id, level: "FLEXITAREAN", name }])
-      : onCheck((state) => state.fileter((info) => info.menu_id !== menu_id));
+      : onCheck((state) => state.filter((info) => info.menu_id !== menu_id));
   }, [isCheck, menu_id, onCheck, name]);
 
   return (
@@ -33,7 +33,7 @@ const SelectMenu = ({
         </TextHeader>
         <DiscriptionBox>{description}</DiscriptionBox>
       </MenuTextWrapper>
-      <MenuImage src={menu_image_url | ""}></MenuImage>
+      <MenuImage src={menu_image_url || ""}></MenuImage>
     </ReviewMenuWrapper>
   );
 };
@@ -80,9 +80,10 @@ const MenuImage = styled.div`
   width: 81px;
   height: 81px;
   border-radius: 4px;
+  background-color: ${({ theme }) => theme.grey500};
   background-image: url(${({ src }) => src});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 `;
 export default SelectMenu;

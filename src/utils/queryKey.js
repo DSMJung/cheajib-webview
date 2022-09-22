@@ -8,7 +8,7 @@ const queryKey = {
     map: (x, y, level, star) =>
       `/restaurants/lists/map?x=${x}&y=${y}&level=${level}&star=${star}`,
     menu: (restaurant_id) => `/restaurants/menu/${restaurant_id}`,
-    reviews: (restaurant_id) => `/restaurants/reviews/${restaurant_id}`,
+    reviews: (restaurant_id) => `/review/${restaurant_id}`,
     restaurant_id: (restaurant_id) => `/restaurants/${restaurant_id}`,
     lists: (x, y, level, star) =>
       `/restaurants/lists?x=${x}&y=${y}&level=${level}&star=${star}`,
@@ -16,7 +16,7 @@ const queryKey = {
     info: (restaurent_id) => `/restaurants/info/${restaurent_id}`,
   },
   menu: {
-    restaurent_id: (restaurent_id) => `/menu/${restaurent_id}`,
+    restaurent_id: (restaurant_id) => `/menu/${restaurant_id}`,
     menu_id: (menu_id) => `/menu/${menu_id}`,
     lists: () => `/menu/lists`,
   },

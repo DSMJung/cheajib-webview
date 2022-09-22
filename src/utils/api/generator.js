@@ -44,6 +44,7 @@ export const reviewGenerator = ({
   content,
   menu_list,
 }) => {
+  console.log(restaurant_id);
   const generatorKey = queryKey.review.restaurant_id(restaurant_id);
   return instance.post(generatorKey, {
     review_point,

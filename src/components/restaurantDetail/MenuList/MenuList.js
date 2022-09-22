@@ -35,7 +35,7 @@ const MenuList = () => {
             price,
             menu_image_url,
             average,
-            review_count,
+            menu_count,
           }) => (
             <MenuItem
               description={description}
@@ -43,7 +43,7 @@ const MenuList = () => {
               menuName={name}
               key={menu_id}
               price={price}
-              participants={review_count}
+              participants={menu_count}
               reliability={average}
             />
           )
