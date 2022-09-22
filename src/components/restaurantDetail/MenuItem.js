@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { vegetarianLevelImage } from "../../assets/vegetarianLevel";
+import { formatNumber } from "../../utils/function/formatNumber";
 
 const MenuItem = ({
   menuName,
@@ -20,7 +21,7 @@ const MenuItem = ({
           <span>{`(${participants})`}</span>
         </MenuHeaderContentContainer>
         <DescriptionArea>{description}</DescriptionArea>
-        <MenuPrice>{price}원</MenuPrice>
+        <MenuPrice>{formatNumber(price)}원</MenuPrice>
       </MenuTextInfoContainer>
       <MenuImageBox src={menuImage} />
     </MenuItemContainer>

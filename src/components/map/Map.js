@@ -64,8 +64,8 @@ const Map = () => {
           myLocation.longitude
         ),
         zoomControl: false,
-        maxZoom: 19,
-        minZoom: 16,
+        // maxZoom: 19,
+        // minZoom: 16,
         zoom: 17,
         disableDoubleClickZoom: true,
         disableDoubleTapZoom: true,
