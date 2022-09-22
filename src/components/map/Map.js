@@ -10,11 +10,19 @@ import queryKey from "../../utils/queryKey";
 import { restaurentMapResource } from "../../utils/api/resource";
 import { restaurentSelectAtom } from "../../atom/restaurentSelectAtom";
 import { currentLocationAtom } from "../../atom/currentLocationAtom";
+
 const Map = () => {
   const { myLocation } = useMyLocation();
   const mapRef = useRef(null);
   const markerRef = useRef(null);
-  const selectMarkerRef = useRef(null);
+  const selectMarkerRef = useRef();
+
+  const [selectedMarker, setSelectedMarker] = useState({
+    marker: null,
+    restaurantName: "",
+    level: "FLEXITAREAN",
+  });
+
   const setCurrentLocation = useSetRecoilState(currentLocationAtom);
   const [location, setLocation] = useState(null);
   const filteringValue = useRecoilValue(filteringAtom);
@@ -31,6 +39,7 @@ const Map = () => {
   useEffect(() => {
     setSelectRestaurent("");
   }, []);
+
   const { data: mapRestaurents, isLoading: mapListLoding } = useQuery(
     mapKey,
     () => {
@@ -98,6 +107,7 @@ const Map = () => {
             anchor: new window.naver.maps.Point(19, 58),
           },
         });
+
         setMarkers((state) => [...state, currentMarker]);
 
         window.naver.maps.Event.addListener(
@@ -112,33 +122,49 @@ const Map = () => {
             });
           }
         );
-        markerClickEvent(currentMarker, level, name, id);
-      }
-    );
 
-    function markerClickEvent(marker, level, restaurent_name, id) {
-      window.naver.maps.Event.addListener(marker, "click", (e) => {
-        mapRef.current.morph(e?.coord, 18);
-        setSelectRestaurent(id);
+        function markerClickEvent(marker, level, restaurent_name, id) {
+          window.naver.maps.Event.addListener(marker, "click", (e) => {
+            mapRef.current.morph(e?.coord, 18);
+            setSelectRestaurent(id);
 
-        if (!!selectMarkerRef.current) {
-          selectMarkerRef.current.setIcon({
-            content: selectMarker(level, restaurent_name),
-            size: new window.naver.maps.Size(38, 58),
-            anchor: new window.naver.maps.Point(19, 58),
+            console.log(selectedMarker);
+
+            if (selectedMarker.marker) {
+              selectedMarker.marker.setIcon({
+                content: zoomInMarker(
+                  selectedMarker.level,
+                  selectedMarker.restaurantName
+                ),
+                size: new window.naver.maps.Size(38, 58),
+                anchor: new window.naver.maps.Point(19, 58),
+              });
+            }
+
+            marker.setIcon({
+              content: selectMarker(level, restaurent_name),
+              size: new window.naver.maps.Size(38, 58),
+              anchor: new window.naver.maps.Point(19, 58),
+            });
+
+            setSelectedMarker({
+              level: level,
+              marker: marker,
+              restaurantName: restaurent_name,
+            });
           });
         }
 
-        marker.setIcon({
-          content: selectMarker(level, restaurent_name),
-          size: new window.naver.maps.Size(38, 58),
-          anchor: new window.naver.maps.Point(19, 58),
-        });
-
-        selectMarkerRef.current = marker;
-      });
-    }
-  }, [mapRestaurents, markerRef, myLocation, setSelectRestaurent]);
+        markerClickEvent(currentMarker, level, name, id);
+      }
+    );
+  }, [
+    mapRestaurents,
+    markerRef,
+    myLocation,
+    setSelectRestaurent,
+    selectedMarker,
+  ]);
 
   return (
     <DefaultFitContainer id="map">

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "http://3.34.174.96:8080",
+  baseURL: "https://cheajib.dsm-pick.com/",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -14,7 +14,7 @@ instance.interceptors.request.use(
     // eslint-disable-next-line no-unused-expressions
     accessToken
       ? (config.headers = {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
         })
       : null;
 

@@ -41,8 +41,8 @@ const ReviewWrite = () => {
     reviewGenerator,
     {
       onSuccess: () => {
-        alert("메뉴 등록이 완료되었습니다.");
-        navigate(`/restaurant_detail/${restaurant_id}.`, { replace: true });
+        alert("리뷰 등록이 완료되었습니다.");
+        navigate(`/restaurant_detail/${restaurant_id}`, { replace: true });
       },
       onError: (e) => alert(e),
     }

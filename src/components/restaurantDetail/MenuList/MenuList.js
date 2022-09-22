@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import queryKey from "../../../utils/queryKey";
 import { menuListResource } from "../../../utils/api/resource";
+import { useEffect } from "react";
 const MenuList = () => {
   const navigate = useNavigate();
   const { restaurant_id } = useParams();
@@ -15,7 +16,6 @@ const MenuList = () => {
   const { data: menuListData } = useQuery(menuKey, () =>
     menuListResource(restaurant_id)
   );
-
   return (
     <>
       <ButtonContainer>
@@ -36,10 +36,12 @@ const MenuList = () => {
             menu_image_url,
             average,
             menu_count,
+            level,
           }) => (
             <MenuItem
               description={description}
               menuImage={menu_image_url}
+              vegetarianLevel={level}
               menuName={name}
               key={menu_id}
               price={price}
